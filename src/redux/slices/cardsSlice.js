@@ -12,8 +12,6 @@ export const cardsSlice = createSlice({
     setItems(state, action) {
         state.items = action.payload;
     },
-
-
   },
 })
 

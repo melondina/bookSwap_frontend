@@ -2,10 +2,8 @@
 
 .button {
   display: inline-block;
-  background-color: $darkblue;
   border-radius: 30px;
   padding: 5px 10px;
-  width: 100%;
   text-align: center;
   cursor: pointer;
   transition: background-color $duration ease-in-out, border-color $duration ease-in-out;
@@ -35,6 +33,7 @@
 
   &-card {
     margin-top: 15px;
+    width: 100%;
     background-color: $darkblue;
   }
 

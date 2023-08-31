@@ -11,37 +11,34 @@ const Home: React.FC = () => {
 
     const [isLoading, setIsLoading] = useState(true);
 
-    const items = useSelector((state) => state.cards.items);
-    
-    const cardsList = items.map((obj: any) => <Card key={obj.id} {...obj} /> );
     const skeletons = [...new Array(5)].map((_, index) => <Skeleton key={index} />);
     
-    const fetchCards = async () => {
-        setIsLoading(true);
-
-        try {
-            await fetch(
-                `https://649bf3520480757192372fa9.mockapi.io/items?`
-            )
-            .then((res) => {
-            return res.json();
-            })
-            .then((json) => {
-            dispatch(setItems(json));
-            });
-        } catch (error) {
-            alert('Ошибка запроса')
-        } finally {
-            setIsLoading(false);
-        }
-        
-        window.scrollTo(0, 0);
-    }
-
-
     useEffect( () => {
+        const fetchCards = async () => {
+            setIsLoading(true);
+    
+            try {
+                await fetch(
+                    // `https://649bf3520480757192372fa9.mockapi.io/items?`
+                    `/api/books/`
+                    )
+                .then((res) => {
+                return res.json();
+                })
+                .then((json) => {
+                    console.log(json.books)
+                dispatch(setItems(json.books));
+                });
+            } catch (error) {
+                alert('Ошибка запроса')
+            } finally {
+                setIsLoading(false);
+            }
+            
+            window.scrollTo(0, 0);
+        }
         fetchCards();
-    }, []);
+    }, [dispatch]);
 
     return (
     <div className="container">
@@ -49,7 +46,7 @@ const Home: React.FC = () => {
         <div className="content__items">
             {isLoading 
             ? skeletons 
-            : cardsList}
+            : <Card />}
         </div>
     </div>
     )
