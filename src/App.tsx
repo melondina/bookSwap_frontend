@@ -5,6 +5,8 @@ import Home from "./pages/Home.tsx";
 import './scss/app.scss';
 import React from "react";
 import Footer from "./components/Footer.tsx";
+import Registration from "./components/Registration.tsx";
+import Login from "./components/Login.tsx";
 
 function App() {
 
@@ -14,6 +16,8 @@ function App() {
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/registration" element={<Registration />} />
+            <Route path="/login" element={<Login />} />
           </Routes>
         </div>
         <Footer />

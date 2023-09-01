@@ -41,15 +41,24 @@ const Home: React.FC = () => {
     }, [dispatch]);
 
     return (
-    <div className="container">
-        <h2 className="content__title">Available now</h2>
-        <div className="content__items">
-            {isLoading 
-            ? skeletons 
-            : <Card />}
+        <div>
+            <div className="header-bottom">
+                <h1 className="header-bottom_title">
+                Connect, Share, Immerse
+                </h1>
+                <p className='header-bottom_desc'>
+                Words Shared, Worlds Explored
+                </p>
+            </div>
+            <div className="container">
+                <h2 className="content__title">Available now</h2>
+                <div className="content__items">
+                    {isLoading 
+                    ? skeletons 
+                    : <Card />}
+                </div>
+            </div>
         </div>
-    </div>
-    )
-    }
+    )}
 
 export default Home;
