@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Registration: React.FC = () => {
 
@@ -20,6 +21,11 @@ const Registration: React.FC = () => {
                     <label htmlFor="password">Repeat password</label>
                     <input type="password" placeholder='Repeat password' />
                     <input type="checkbox" name="By creating an account means you agree to the Terms and Conditions, and our Privacy Policy" id="checkbox-registration-id" value="yes" required />
+                    <label htmlFor="checkbox-label" for="checkbox-registration-id">
+                        ::before
+                        "By creating an account means you agree to the "
+                        <Link to="/termsAndConditions">Terms and Conditions</Link>
+                    </label>
                 </form>
             </div>
         </div>
