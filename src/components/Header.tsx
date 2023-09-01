@@ -1,5 +1,6 @@
 import React from 'react';
 import logo from '../assets/img/logo.png';
+import { Link } from 'react-router-dom';
 
 
 
@@ -10,19 +11,18 @@ return (
     <div className="header">
         <div className="container">
         <div className='header-top'>
-            <img width="15%" src={logo} alt="logo" />
-            <div>
-            <button className='button'>Login</button>
-            <button className='button'>Sign In</button>
-            </div>
+        <Link to="/">
+        <img width="100%" src={logo} alt="logo" />
+            </Link>
+
+        <div className='header-links'>
+            <Link to="/login" className='links'>
+                Login
+            </Link>
+            <Link to="/registration" className='links'>
+                Sign Up
+            </Link>
         </div>
-        <div className="header-bottom">
-            <h1 className="header-bottom_title">
-            Connect, Share, Immerse
-            </h1>
-            <p className='header-bottom_desc'>
-            Words Shared, Worlds Explored
-            </p>
         </div>
     </div>
     </div>
