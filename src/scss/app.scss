@@ -46,6 +46,12 @@ body {
     }
   }
 
+  &__button {
+    display: block;
+    width: 30%;
+    margin: 15px auto;
+  }
+
 }
 
 .container {
