@@ -7,6 +7,7 @@ import React from "react";
 import Footer from "./components/Footer.tsx";
 import Registration from "./components/Registration.tsx";
 import Login from "./components/Login.tsx";
+import TermsAndConditions from "./components/TermsAndConditions.tsx";
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/termsAndConditions" element={<TermsAndConditions />} />
           </Routes>
         </div>
         <Footer />
