@@ -8,6 +8,9 @@ import Footer from "./components/Footer.tsx";
 import Registration from "./components/Registration.tsx";
 import Login from "./components/Login.tsx";
 import TermsAndConditions from "./components/TermsAndConditions.tsx";
+import Logout from "./pages/Logout.tsx";
+import Library from "./pages/Library.tsx";
+import Profile from "./pages/Profile.tsx";
 
 function App() {
 
@@ -20,6 +23,9 @@ function App() {
             <Route path="/registration" element={<Registration />} />
             <Route path="/login" element={<Login />} />
             <Route path="/termsAndConditions" element={<TermsAndConditions />} />
+            <Route path="/logout" element={<Logout />} />
+            <Route path="/library" element={<Library />} />
+            <Route path="/profile" element={<Profile />} />
           </Routes>
         </div>
         <Footer />

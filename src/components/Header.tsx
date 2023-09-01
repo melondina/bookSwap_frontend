@@ -22,6 +22,16 @@ return (
             <Link to="/registration" className='links'>
                 Sign Up
             </Link>
+            <Link to="/library" className='links'>
+                My library
+            </Link>
+            <Link to="/profile" className='links'>
+                My profile
+            </Link>
+            <Link to="/logout" className='links'>
+                Log out
+            </Link>
+
         </div>
         </div>
     </div>
