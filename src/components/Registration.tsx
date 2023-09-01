@@ -30,10 +30,14 @@ const Registration: React.FC = () => {
                         <input className='registration-form__checkbox' type="checkbox" name="By creating an account means you agree to the Terms and Conditions, and our Privacy Policy" id="checkbox-registration-id" value="yes" required />
                         <label htmlFor="checkbox-label" for="checkbox-registration-id">
                             By creating an account means you agree to the 
-                            <Link to="/termsAndConditions"> Terms and Conditions</Link>
+                            <Link className='registration__links' to="/termsAndConditions"> Terms and Conditions</Link>
                         </label>
                     </div>
                     <button className='button'>Sign Up</button>
+                    <p className='registration__bottom'>
+                    Already have an account?
+                    <Link className='registration__links' to="/login"> Login</Link>
+                </p>
                 </form>
             </div>
         </div>

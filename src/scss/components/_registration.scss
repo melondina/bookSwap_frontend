@@ -1,7 +1,6 @@
 @import '_mixin.scss';
 
 .registration {
-    margin: 50px 0;
     &_title {
         margin-bottom: 10px;
         font-size: 28px;
@@ -10,7 +9,7 @@
     }
     &-form {
         width: 40%;
-        margin-top: 15px;
+        margin: 15px 0;
 
         &__wrap {
         display: flex;
@@ -85,5 +84,15 @@
         }
     }
 
+    &__links {
+        font-weight: 600;
+        &:hover {
+            color: #718096;
+        }
+    }
+    &__bottom {
+        margin: 20px auto;
+        text-align: center;
+    }
 }
 
