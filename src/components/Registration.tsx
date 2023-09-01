@@ -12,20 +12,28 @@ const Registration: React.FC = () => {
                 <p>
                 It’s free and easy 
                 </p>
-                <form action="">
-                    <label htmlFor="email">Email</label>
-                    <input type="email" placeholder='Enter your email' />
-                    <label htmlFor="password">Password</label>
-                    <input type="password" placeholder='Enter password' />
-                    <span>Must be 8 characters at least</span>
-                    <label htmlFor="password">Repeat password</label>
-                    <input type="password" placeholder='Repeat password' />
-                    <input type="checkbox" name="By creating an account means you agree to the Terms and Conditions, and our Privacy Policy" id="checkbox-registration-id" value="yes" required />
-                    <label htmlFor="checkbox-label" for="checkbox-registration-id">
-                        ::before
-                        "By creating an account means you agree to the "
-                        <Link to="/termsAndConditions">Terms and Conditions</Link>
-                    </label>
+                <form action="" className='registration-form'>
+                    <div className='registration-form__wrap'>
+                        <label  className='registration-form__label' htmlFor="email">Email</label>
+                        <input className='registration-form__input' type="email" placeholder='Enter your email' />
+                    </div>
+                    <div className='registration-form__wrap'>
+                        <label className='registration-form__label' htmlFor="password">Password</label>
+                        <input className='registration-form__input' type="password" placeholder='Enter password' />
+                        <span>Must be 8 characters at least</span>
+                    </div>
+                    <div className='registration-form__wrap'>
+                        <label className='registration-form__label' htmlFor="password">Repeat password</label>
+                        <input className='registration-form__input' type="password" placeholder='Repeat password' />
+                    </div>
+                    <div className='registration-form__wrap'>
+                        <input className='registration-form__checkbox' type="checkbox" name="By creating an account means you agree to the Terms and Conditions, and our Privacy Policy" id="checkbox-registration-id" value="yes" required />
+                        <label htmlFor="checkbox-label" for="checkbox-registration-id">
+                            By creating an account means you agree to the 
+                            <Link to="/termsAndConditions"> Terms and Conditions</Link>
+                        </label>
+                    </div>
+                    <button className='button'>Sign Up</button>
                 </form>
             </div>
         </div>
