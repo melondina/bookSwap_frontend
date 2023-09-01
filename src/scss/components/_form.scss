@@ -94,7 +94,32 @@
     &__bottom {
         margin: 20px auto;
         text-align: center;
-    }   
+    }
+    
+    .input__disabled {
+        &:hover {
+            background-color: #EDF2F7;
+            border-color: #EDF2F7;
+        }
+    }
+
+    .button-profile {
+        width: 30%;
+
+        &__right {
+            background-color: transparent;
+            color: $darkblue;
+            border: 1px solid $darkblue;
+
+            &:hover {
+                background-color: #EDF2F7;
+            }
+        }
+
+        &:not(:last-child) {
+            margin-right: 20px;
+        }
+    }
 }
 
 
