@@ -1,9 +1,14 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Logout: React.FC = () => {
     return (
-        <div>
-            Logout
+        <div className='container'>
+            Do you want to Log out?
+            <div>
+            <Link to="/" className='button'>Yes</Link>
+            <Link to="/" className='button'>No</Link>
+            </div>
         </div>
     )}
 
