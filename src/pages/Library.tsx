@@ -1,5 +1,5 @@
 import React from 'react';
-import MyLibraryBox from '../components/MyLibraryBox.tsx';
+import MyLibraryBox from '../components/My_library_box';
 
 const Library: React.FC = () => {
     return (
