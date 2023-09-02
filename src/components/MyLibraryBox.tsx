@@ -1,23 +1,10 @@
 import React from 'react';
 
-const My_library_box: React.FC = () => {
+const MyLibraryBox: React.FC = () => {
     return (
         <div>
-            <ul>
-                <li>
-                    My books
-                </li>
-                <li>
-                    Want to read
-                </li>
-                <li>
-                    My history
-                </li>
-                <li>
-                    Books to send
-                </li>
-            </ul>
+            MyLibraryBox
         </div>
     )}
 
-    export default My_library_box;
+    export default MyLibraryBox;
