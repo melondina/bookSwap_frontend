@@ -18,7 +18,7 @@ const Login: React.FC = () => {
                         <label className='form__label' htmlFor="password">Password</label>
                         <input className='form__input' type="password" placeholder='Enter password' />
                     </div>
-                    <button className='button'>Continue</button>
+                    <button type="submit" className='button'>Continue</button>
                     <p className='form__bottom'>
                     Don`t have an account?
                     <Link className='form__links' to="/registration"> Sign Up</Link>
