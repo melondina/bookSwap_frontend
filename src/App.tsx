@@ -12,6 +12,7 @@ import Logout from "./pages/Logout.tsx";
 import Library from "./pages/Library.tsx";
 import Profile from "./pages/Profile.tsx";
 import AddNewBook from "./pages/AddNewBook.tsx";
+import BookInfo from "./pages/BookInfo.tsx";
 
 function App() {
 
