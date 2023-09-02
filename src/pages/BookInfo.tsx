@@ -34,8 +34,8 @@ const BookInfo: React.FC<IBooks> = ({
 
 
     return (
-        <div>
-            <div>
+        <div className='container'>
+            <div >
             <img src={cover} alt="Book" />
             </div>
             <div>
