@@ -12,6 +12,7 @@ import Logout from "./pages/Logout.tsx";
 import Library from "./pages/Library.tsx";
 import Profile from "./pages/Profile.tsx";
 import AddNewBook from "./pages/AddNewBook.tsx";
+import BookInfo from "./pages/BookInfo.tsx";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
             <Route path="/library" element={<Library />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addBook" element={<AddNewBook />} />
+            <Route path="/bookInfo" element={<BookInfo />} />
           </Routes>
         </div>
         <Footer />

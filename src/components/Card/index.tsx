@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 interface IBooks {
@@ -37,9 +38,7 @@ const Card: React.FC = () => {
                     <p className="card-block-desc__top">{author}</p>
                     <p className="card-block-desc__bottom">{category}</p>
                     <p className="card-block-desc__bottom">{language}</p>
-                    <button className="button button-card">
-                        <span>More info</span>
-                    </button>
+                    <Link to="/bookInfo" className="button button-card"> More info </Link>
                 </div>
             </div>
         </div>
