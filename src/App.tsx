@@ -28,6 +28,7 @@ function App() {
             <Route path="/library" element={<Library />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addBook" element={<AddNewBook />} />
+            <Route path="/bookInfo" element={<BookInfo />} />
           </Routes>
         </div>
         <Footer />
