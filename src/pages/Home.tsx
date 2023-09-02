@@ -57,6 +57,9 @@ const Home: React.FC = () => {
                     ? skeletons 
                     : <Card />}
                 </div>
+                <button className="button content__button">
+                    See all
+                </button>
             </div>
         </div>
     )}
