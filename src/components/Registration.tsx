@@ -33,7 +33,7 @@ const Registration: React.FC = () => {
                             <Link className='form__links' to="/termsAndConditions"> Terms and Conditions</Link>
                         </label>
                     </div>
-                    <button className='button'>Sign Up</button>
+                    <button type="submit" className='button'>Sign Up</button>
                     <p className='form__bottom'>
                     Already have an account?
                     <Link className='form__links' to="/login"> Login</Link>
