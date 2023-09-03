@@ -24,8 +24,6 @@ const Registration: React.FC = () => {
         userRegistr(createNewUser);
     }
 
-
-
     return (
         <div className='container'>
                 <h2 className='content__title'>
