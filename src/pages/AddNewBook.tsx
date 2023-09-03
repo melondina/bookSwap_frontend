@@ -3,10 +3,10 @@ import MyLibraryBox from '../components/MyLibraryBox.tsx';
 
 const AddNewBook: React.FC = () => {
     return (
-        <div>
-            <h3>
+        <div className='container'>
+            <h2 className='content__title'>
                 Add New Book
-            </h3>
+            </h2>
             <MyLibraryBox />
             <form action="" className='form'>
                 <div className='form__wrap'>

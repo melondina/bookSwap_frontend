@@ -5,14 +5,14 @@ import Home from "./pages/Home.tsx";
 import './scss/app.scss';
 import React from "react";
 import Footer from "./components/Footer.tsx";
-import Registration from "./components/Registration.tsx";
-import Login from "./components/Login.tsx";
 import TermsAndConditions from "./components/TermsAndConditions.tsx";
 import Logout from "./pages/Logout.tsx";
 import Library from "./pages/Library.tsx";
 import Profile from "./pages/Profile.tsx";
 import AddNewBook from "./pages/AddNewBook.tsx";
 import BookInfo from "./pages/BookInfo.tsx";
+import Registration from "./components/UserAuth/Registration.tsx";
+import Login from "./components/UserAuth/Login.tsx";
 
 function App() {
 

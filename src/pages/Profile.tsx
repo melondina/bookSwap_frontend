@@ -2,11 +2,12 @@ import React from 'react';
 
 const Profile: React.FC = () => {
     return (
-        <div>
-            <div className='container form-container'>
-                <h2 className='form-container_title'>
-                    Personal Info
-                </h2>
+        <div className='container'>
+            <h2 className='content__title'>
+                Personal Info
+            </h2>
+
+            <div className='form-container'>
                 <form action="" className='form'>
                 <div className='form__wrap'>
                         <label  className='form__label' htmlFor="name">FIRST NAME</label>
