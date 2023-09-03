@@ -1,4 +1,4 @@
-import { ICreateNewUser } from "../initUser";
+import { ICreateNewUser } from "../initUser.ts";
 import axios from "axios";
 
 export const userLogin = async ({email, password}: ICreateNewUser) => {
