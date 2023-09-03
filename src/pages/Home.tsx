@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import Card from "../components/Cards/index.tsx";
 import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
+import Cards from '../components/Cards/index.tsx';
 
 
 const Home: React.FC = () => {
@@ -55,7 +55,7 @@ const Home: React.FC = () => {
                 <div className="content__items">
                     {isLoading
                         ? skeletons
-                        : <Card />}
+                        : <Cards />}
                 </div>
                 <button className="button content__button">
                     See all
