@@ -1,8 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
 
 import { initUserAuth } from './initUser.ts';
-import { userLogin } from './userAuthOperation/userAuthOperation.ts';
+import { getUser, userLogin } from './userAuthOperation/userAuthOperation.ts';
+import { setUser } from '../../redux/slices/usersSlice.js';
 
 
 const Login: React.FC = () => {
@@ -10,6 +13,8 @@ const Login: React.FC = () => {
     const [loginUser, setLoginUser] = useState(initUserAuth);
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
+    const [error, setError] = useState("");
+    const dispatch = useDispatch();
     
 
     const handleLoginForm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -19,14 +24,26 @@ const Login: React.FC = () => {
         }))
     }
 
+
+
     const handleLoginSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const userData = await userLogin(loginUser);
             if(userData?.status===200) {
+                const getMe = await getUser();
+                console.log("getMe",getMe?.data);
+
+                if(getMe?.status===200) {
+                    dispatch(setUser(getMe.data))
                 navigate("/")
             }
+                
+            } else {
+                setError("Incorrect email or password. Please try again.");
+            }
         } catch (error) {
+            setError("Incorrect email or password. Please try again.");
             console.log(error)
         } 
     }
@@ -49,7 +66,7 @@ const Login: React.FC = () => {
                     <button type="submit" className='button'>Continue</button>
                     <p className='form__bottom'>
                     Don`t have an account?
-                    <Link className='form__links' to="/registration"> Sign Up</Link>
+                    <button className='form__links'> Sign Up</button>
                 </p>
                 </form>
                 <button type="button" onClick={()=>setShow((prev) => !prev)}>Show</button>

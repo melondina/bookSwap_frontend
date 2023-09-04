@@ -1,4 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from "react-redux";
+import { useParams } from 'react-router-dom';
+
 
 
 interface IBooks {
@@ -15,7 +18,13 @@ interface IBooks {
     queueSize: number
 }
 
+interface IItems {
+    items: IBooks[];
+}
 
+interface IBooksObject {
+    cards: IItems,
+}
 
 
 const BookInfo: React.FC<IBooks> = ({
@@ -32,14 +41,25 @@ const BookInfo: React.FC<IBooks> = ({
     queueSize
 }) => {
 
+    const items = useSelector((state:IBooksObject) => state.cards.items);
+    console.log("items", items);
+
+    const {id} = useParams();
+    console.log(id);
+
+    const oneBook = items.find((item) => `${item.bookId}` === id );
+    console.log(oneBook);
+
+    useEffect(() => {})
+
 
     return (
         <div>
             <div>
-            <img src={cover} alt="Book" />
+            <img src={oneBook?.cover} alt="Book" />
             </div>
             <div>
-                <p>{title}</p>
+                <p>{oneBook?.title}</p>
                 <p>{author}</p>
                 <p>{category}</p>
                 <p>{language}</p>

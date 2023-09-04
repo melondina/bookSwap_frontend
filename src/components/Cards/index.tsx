@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useEffect } from "react";
+import { Link, useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 interface IBooks {
@@ -19,17 +19,35 @@ interface IBooksObject {
     cards: IItems,
 }
 
+interface ICardProps {
+    slice?: number; 
+}
 
 
-const Card: React.FC = () => {
+
+const Cards: React.FC<ICardProps> = ({ slice }) => {
 
     const items = useSelector((state:IBooksObject) => state.cards.items);
+    console.log("items", items);
+
     
+    const navigate = useNavigate();
+
+    const displayedItems = slice ? items.slice(0, slice) : items;
+    console.log(displayedItems)
+    
+    const getBookById = (bookId: number) => {
+        navigate(`/bookInfo/${bookId}`)
+        console.log(bookId)
+    }
+
+    useEffect(() => {console.log("Cards")})
 
 
     return (
         <>
-            {items.map(({ bookId, title, author, category, language, cover }) => (
+            {displayedItems.map(({ bookId, title, author, category, language, cover }) => (
+                
         <div key={bookId} className="card-block-wrapper">
             <div className="card-block">
                 <img className="card-block__image" src={cover} alt="card" />
@@ -38,7 +56,7 @@ const Card: React.FC = () => {
                     <p className="card-block-desc__top">{author}</p>
                     <p className="card-block-desc__bottom">{category}</p>
                     <p className="card-block-desc__bottom">{language}</p>
-                    <Link to="/bookInfo" className="button button-card"> More info </Link>
+                    <Link to="/bookInfo" className="button button-card" onClick={() => getBookById(bookId)}> More info </Link>
                 </div>
             </div>
         </div>
@@ -48,4 +66,6 @@ const Card: React.FC = () => {
 }
 
 
-export default Card;
+export default Cards;
+
+
