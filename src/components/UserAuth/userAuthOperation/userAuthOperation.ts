@@ -22,3 +22,14 @@ export const userRegistr = async (createNewUser: ICreateNewUser) => {
         console.log("userRegistr",error)
     }
 }
+
+export const getUser = async () => {
+    try {
+        const data = await axios.get(`/api/users/me`, { withCredentials: true});
+        console.log("userRegistr", data);
+        return data;
+
+    } catch (error) {
+        console.log("userRegistr",error)
+    }
+}

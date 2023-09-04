@@ -10,6 +10,7 @@ const Home: React.FC = () => {
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(true);
+    const [showAll, setShowAll] = useState(false);
 
     const skeletons = [...new Array(5)].map((_, index) => <Skeleton key={index} />);
 
@@ -19,7 +20,6 @@ const Home: React.FC = () => {
 
             try {
                 await fetch(
-                    // `https://649bf3520480757192372fa9.mockapi.io/items?`
                     `/api/books/`
                 )
                     .then((res) => {
@@ -55,11 +55,15 @@ const Home: React.FC = () => {
                 <div className="content__items">
                     {isLoading
                         ? skeletons
-                        : <Cards />}
+                        : showAll 
+                        ? <Cards />
+                        : <Cards slice={5} />}
                 </div>
-                <button className="button content__button">
-                    See all
-                </button>
+                {!showAll && (
+                    <button className="button content__button" onClick={() => setShowAll(true)}>
+                        See all
+                    </button>
+                )}
             </div>
         </div>
     )
