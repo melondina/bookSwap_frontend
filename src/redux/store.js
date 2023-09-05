@@ -10,6 +10,7 @@ export const store = configureStore({
   reducer: {
     cards, user,
   },
+  devTools: true
 });
 
 // export type RootState = ReturnType<typeof store.getState>;

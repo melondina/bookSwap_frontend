@@ -1,7 +1,13 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import MyLibraryBox from '../components/MyLibraryBox.tsx';
+import MyLibraryBox from "../components/MyLibraryBox.tsx";
 import axios from "axios";
+import { useSelector } from 'react-redux';
+
+
+const useUserSelector = () => {
+    return useSelector((state) => state.user.user.id);
+};
 
 
 const AddNewBook: React.FC = () => {
@@ -32,10 +38,17 @@ const AddNewBook: React.FC = () => {
     }
 
     const navigate = useNavigate();
+    const userId = useUserSelector();
+    console.log(userId)
 
     const bookCreating = async (createNewBook: ICreateNewBook) => {
         try {
-            const data = await axios.post(`/api/books`, createNewBook);
+            const newBookData = {
+                ...createNewBook,
+                owner: userId,
+            };
+            console.log(newBookData)
+            const data = await axios.post(`/api/books`, newBookData);
             console.log("bookCreating", data)
             return data;
         } catch (error) {
@@ -43,12 +56,6 @@ const AddNewBook: React.FC = () => {
         }
     }
     
-    // const handleAddNewBookForm = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const {name, value} = event.target;
-    //     setCreateNewBook((prev) => ({
-    //         ...prev, [name]:value
-    //     }))
-    // }
 
     const handleAddBookForm = (event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -57,20 +64,11 @@ const AddNewBook: React.FC = () => {
         }))
     }
 
-    // const handleAddNewBookSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    //     const {name, value} = event.target;
-    //     setCreateNewBook((prev) => ({
-    //         ...prev, [name]:value
-    //     }))
-    // }
 
     const handleAddNewBookSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // const newBook = {
-        //     ...createNewBook, owner: userId;
-        // }
         try {
-            const bookData = await bookCreating(newBook);
+            const bookData = await bookCreating(createNewBook);
             if(bookData?.status===201) {
                 navigate("/library");
             }
@@ -79,6 +77,7 @@ const AddNewBook: React.FC = () => {
             console.log(error)
         }
     }
+
 
         
 
@@ -127,10 +126,6 @@ const AddNewBook: React.FC = () => {
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="language">LANGUAGE</label>
                     <input className='form__input' type="text" name="language" onChange={handleAddBookForm} value={createNewBook.language} placeholder='Enter a book language' />
-                </div>
-                <div className='form__wrap'>
-                    <label  className='form__label' htmlFor="language">OWNER</label>
-                    <input className='form__input' type="text" name="owner" onChange={handleAddBookForm} value={createNewBook.owner} placeholder='Enter a book language' />
                 </div>
 
                 </div>
