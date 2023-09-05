@@ -1,7 +1,11 @@
 .footer {
     display: flex;
     justify-content: space-between;
-
+    background-color: #F4F5F6;
+    width: 100%;
+    padding: 50px;
+    margin: auto;
+    
     &-left {
         display: flex;
         flex-direction: column;
