@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 const useUserSelector = () => {
-    return useSelector((state) => state.user.user.email);
+    return useSelector((state) => state.user.user);
 };
 
 
@@ -12,21 +12,17 @@ const useUserSelector = () => {
 const Profile: React.FC = () => {
 
     const [updateUser, setUpdateUser] = useState({
+        newRole: 'USER',
         firstName: '',
         lastName: '',
-        email: '',
-        postalCode: '',
-        country: '',
-        city: '',
+        postalCode: '10178',
     });
 
     interface IUserProfile {
+        newRole: string,
         firstName: string,
         lastName: string,
-        email: string,
         postalCode: string,
-        country: string,
-        city: string,
     }
 
     const handleUpdateUserForm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -37,17 +33,12 @@ const Profile: React.FC = () => {
     }
 
     const navigate = useNavigate();
-    const email = useUserSelector();
-    console.log(email)
+    const user = useUserSelector();
+    console.log(user)
 
     const userProfileCreating = async (updateUser: IUserProfile) => {
         try {
-            const newUserData = {
-                ...updateUser,
-                email: email,
-            };
-
-            const data = await axios.put(`/api/users/{user-id}`, newUserData);
+            const data = await axios.put(`/api/users/${user.id}`, updateUser, { withCredentials: true});
             console.log("userProfileCreating", data);
             return data;
         } catch (error) {
@@ -59,7 +50,8 @@ const Profile: React.FC = () => {
         event.preventDefault();
         try {
             const userUpdateData = await userProfileCreating(updateUser);
-            if(userUpdateData?.status===201) {
+            console.log("userUpdateData", userUpdateData)
+            if(userUpdateData?.status===200) {
                 navigate("/library")
             }
         } catch (error) {
@@ -87,7 +79,7 @@ const Profile: React.FC = () => {
 
                     <div className='form__wrap'>
                         <label  className='form__label' htmlFor="email">EMAIL</label>
-                        <input className='form__input input__disabled' type="email" name="email" value={email} disabled/>
+                        <input className='form__input input__disabled' type="email" name="email" value={user.email} disabled/>
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="postcode">POSTCODE</label>
@@ -99,7 +91,7 @@ const Profile: React.FC = () => {
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="city">CITY</label>
-                        <input className='form__input input__disabled' type="text" disabled />
+                        <input className='form__input input__disabled' type="text" name="city" onChange={handleUpdateUserForm} value={updateUser.city} />
                     </div>
                     <div >
                         <button type='submit' className='button button-profile'>Save</button>

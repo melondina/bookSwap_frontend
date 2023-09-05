@@ -1,12 +1,38 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
+import { getUser } from './UserAuth/userAuthOperation/userAuthOperation.ts';
+import { setUser } from '../redux/slices/usersSlice.js';
 
 
 
 const Header: React.FC = () => {
-    
+    const dispatch = useDispatch();
 
+    const user = useSelector(state => state.user.user);
+    console.log("userHeader", user);
+
+   useEffect(() => {
+    async function fetchData() {
+        try {
+          const getMe = await getUser();
+          console.log("getMe", getMe?.data);
+    
+          if (getMe?.status === 200) {
+            dispatch(setUser(getMe.data));
+          }
+        } catch (error) {
+          // Handle any errors here
+          console.error("Error fetching data:", error);
+        }
+      } 
+      fetchData()   
+
+   }, [dispatch]);
+
+   
 return (
     <div className="header">
         <div className="container">
