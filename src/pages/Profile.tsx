@@ -1,6 +1,12 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
+const useUserSelector = () => {
+    return useSelector((state) => state.user.user.email);
+};
+
 
 
 const Profile: React.FC = () => {
@@ -31,11 +37,19 @@ const Profile: React.FC = () => {
     }
 
     const navigate = useNavigate();
+    const email = useUserSelector();
+    console.log(email)
 
     const userProfileCreating = async (updateUser: IUserProfile) => {
         try {
-            const {data} = await axios.put(`/api/users/{user-id}`, updateUser);
-            console.log("userProfileCreating", data)
+            const newUserData = {
+                ...updateUser,
+                email: email,
+            };
+
+            const data = await axios.put(`/api/users/{user-id}`, newUserData);
+            console.log("userProfileCreating", data);
+            return data;
         } catch (error) {
             console.log("userProfileCreating", error)
         }
@@ -73,7 +87,7 @@ const Profile: React.FC = () => {
 
                     <div className='form__wrap'>
                         <label  className='form__label' htmlFor="email">EMAIL</label>
-                        <input className='form__input input__disabled' type="email" disabled/>
+                        <input className='form__input input__disabled' type="email" name="email" value={email} disabled/>
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="postcode">POSTCODE</label>

@@ -10,6 +10,10 @@ import { setUser } from '../../redux/slices/usersSlice.js';
 
 const Login: React.FC = () => {
 
+
+
+
+
     const [loginUser, setLoginUser] = useState(initUserAuth);
     const [show, setShow] = useState(false);
     const navigate = useNavigate();
@@ -35,7 +39,9 @@ const Login: React.FC = () => {
                 console.log("getMe",getMe?.data);
 
                 if(getMe?.status===200) {
-                    dispatch(setUser(getMe.data))
+                    dispatch(setUser(getMe.data));
+                    const email = getMe.data.email;
+                    console.log("email", email)
                 navigate("/")
             }
                 
