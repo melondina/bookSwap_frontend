@@ -12,7 +12,6 @@ const useUserSelector = () => {
 const Profile: React.FC = () => {
 
     const [postCode, setPostCode] = useState('');
-    // console.log("🚀 ~ file: Profile.tsx:15 ~ postCode:", postCode);
 
     const [city, setCity] = useState('');
 
@@ -44,12 +43,10 @@ const Profile: React.FC = () => {
 
     const navigate = useNavigate();
     const user = useUserSelector();
-    console.log(user)
 
     const userProfileCreating = async (updateUser: IUserProfile) => {
         try {
             const data = await axios.put(`/api/users/${user.id}`, updateUser, { withCredentials: true});
-            console.log("userProfileCreating", data);
             return data;
         } catch (error) {
             console.log("userProfileCreating", error)
@@ -65,7 +62,6 @@ const Profile: React.FC = () => {
             }))
 
             const userUpdateData = await userProfileCreating(updateUser);
-            console.log("userUpdateData", userUpdateData)
             if(userUpdateData?.status===200) {
                 navigate("/library")
             }
@@ -81,14 +77,11 @@ const Profile: React.FC = () => {
                 const getCity = async () => {
                     const {data} = await axios.get(`/api/location/${postCode}`);
                     
-                    console.log("data.city", data?.city)
-                    console.log("🚀 ~ file: Profile.tsx:77 ~ city ~ data:", data);
                     setCity(data.city);
                 }
                 getCity();
                 
             } catch (error) {
-                console.log("🚀 ~ file: Profile.tsx:76 ~ useEffect ~ error:", error)
             }
         }
     }, [postCode])
@@ -132,9 +125,6 @@ const Profile: React.FC = () => {
                         <button type='reset' className='button button-profile button-profile__right'>Cancel</button>
                     </div>
                 </form>
-                <button type='button'>
-                    Get city
-                </button>
             </div>
         </div>
 
