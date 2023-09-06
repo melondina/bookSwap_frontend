@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -11,15 +11,19 @@ const useUserSelector = () => {
 
 const Profile: React.FC = () => {
 
+    const [postCode, setPostCode] = useState('');
+    // console.log("🚀 ~ file: Profile.tsx:15 ~ postCode:", postCode);
+
+    const [city, setCity] = useState('');
+
     const [updateUser, setUpdateUser] = useState({
-        newRole: 'USER',
         firstName: '',
         lastName: '',
-        postalCode: '10178',
+        postalCode: '',
     });
 
+
     interface IUserProfile {
-        newRole: string,
         firstName: string,
         lastName: string,
         postalCode: string,
@@ -30,6 +34,12 @@ const Profile: React.FC = () => {
         setUpdateUser((prev) => ({
             ...prev, [name]:value
         }))
+    }
+
+    const handlePostCode = (event: ChangeEvent<HTMLInputElement>) => {
+        const {value} = event.target;
+        setPostCode(value)
+
     }
 
     const navigate = useNavigate();
@@ -49,6 +59,11 @@ const Profile: React.FC = () => {
     const handleUpdateUserSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
+
+            setUpdateUser ((prev) => ({
+                ...prev, postalCode: postCode
+            }))
+
             const userUpdateData = await userProfileCreating(updateUser);
             console.log("userUpdateData", userUpdateData)
             if(userUpdateData?.status===200) {
@@ -58,6 +73,25 @@ const Profile: React.FC = () => {
             console.log(error)
         }
     }
+
+
+    useEffect(() => {
+        if(postCode.length === 5) {
+            try {
+                const getCity = async () => {
+                    const {data} = await axios.get(`/api/location/${postCode}`);
+                    
+                    console.log("data.city", data?.city)
+                    console.log("🚀 ~ file: Profile.tsx:77 ~ city ~ data:", data);
+                    setCity(data.city);
+                }
+                getCity();
+                
+            } catch (error) {
+                console.log("🚀 ~ file: Profile.tsx:76 ~ useEffect ~ error:", error)
+            }
+        }
+    }, [postCode])
 
 
     return (
@@ -79,25 +113,28 @@ const Profile: React.FC = () => {
 
                     <div className='form__wrap'>
                         <label  className='form__label' htmlFor="email">EMAIL</label>
-                        <input className='form__input input__disabled' type="email" name="email" value={user.email} disabled/>
+                        <input className='form__input input__disabled' type="email" name="email" value={user?.email} disabled/>
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="postcode">POSTCODE</label>
-                        <input className='form__input' type="number" name="postalCode" onChange={handleUpdateUserForm} value={updateUser.postalCode} placeholder='Enter your postcode' />
+                        <input className='form__input' type="number" name="postalCode" onChange={handlePostCode} value={postCode} placeholder='Enter your postcode' />
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="country">COUNTRY</label>
-                        <input className='form__input input__disabled' type="text" disabled />
+                        <input className='form__input input__disabled' type="text" disabled value="Germany" />
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="city">CITY</label>
-                        <input className='form__input input__disabled' type="text" name="city" onChange={handleUpdateUserForm} value={updateUser.city} />
+                        <input className='form__input input__disabled' type="text" name="city" value={city} />
                     </div>
                     <div >
                         <button type='submit' className='button button-profile'>Save</button>
                         <button type='reset' className='button button-profile button-profile__right'>Cancel</button>
                     </div>
                 </form>
+                <button type='button'>
+                    Get city
+                </button>
             </div>
         </div>
 
