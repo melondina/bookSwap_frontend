@@ -26,7 +26,7 @@ const Home: React.FC = () => {
                         return res.json();
                     })
                     .then((json) => {
-                        console.log(json.books)
+                        console.log("books.json", json.books)
                         dispatch(setItems(json.books));
                     });
             } catch (error) {

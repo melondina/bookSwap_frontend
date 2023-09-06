@@ -9,11 +9,6 @@ import { setUser } from '../../redux/slices/usersSlice.js';
 
 
 const Login: React.FC = () => {
-
-
-
-
-
     const [loginUser, setLoginUser] = useState(initUserAuth);
     const [show, setShow] = useState(false);
     const navigate = useNavigate();

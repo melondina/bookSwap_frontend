@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom';
 const Header: React.FC = () => {
 
     const user = useSelector(state => state.user.user);
-    console.log("userHeader", user);
+    // console.log("userHeader", user);
 
 
 

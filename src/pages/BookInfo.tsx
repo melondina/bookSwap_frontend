@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useSelector } from "react-redux";
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 
@@ -18,57 +18,47 @@ interface IBooks {
     queueSize: number
 }
 
-interface IItems {
-    items: IBooks[];
-}
 
-interface IBooksObject {
-    cards: IItems,
-}
-
-
-const BookInfo: React.FC<IBooks> = ({
-    bookId,
-    title,
-    author,
-    description,
-    category,
-    language,
-    pages,
-    publisherDate,
-    cover,
-    location,
-    queueSize
-}) => {
-
-    const items = useSelector((state:IBooksObject) => state.cards.items);
-    console.log("items", items);
+const BookInfo: React.FC<IBooks> = () => {
 
     const {id} = useParams();
     console.log(id);
 
-    const oneBook = items.find((item) => `${item.bookId}` === id );
-    console.log(oneBook);
+    const [book, setBook] = useState<IBooks | null>(null);
 
-    useEffect(() => {})
+    useEffect(() => {
+
+        const fetchBook = async () => {
+          try {
+            const response = await axios.get(`/api/books/${id}/detail`);
+            if(response?.status === 200) {
+                setBook(response.data);
+            }
+            console.log("dataBook", response.data.title);
+          } catch (error) {
+            console.error('Ошибка при запросе к серверу:', error);
+          }
+        };
+    
+        fetchBook();
+      }, [id]);
 
 
     return (
         <div>
             <div>
-            <img src={oneBook?.cover} alt="Book" />
+            <img src={book?.cover} alt="Book" />
             </div>
             <div>
-                <p>{oneBook?.title}</p>
-                <p>{author}</p>
-                <p>{category}</p>
-                <p>{language}</p>
-                <p>Description: {description}</p>
-                <p>Number of pages: {pages}</p>
-                <p>Year of publication: {publisherDate}</p>
-                <p>Wait line: {queueSize}</p>
-                <p>Current location: {location}</p>
-                <p>{title}</p>
+                <p>{book?.title}</p>
+                <p>{book?.author}</p>
+                <p>{book?.category}</p>
+                <p>{book?.language}</p>
+                <p>Description: {book?.description}</p>
+                <p>Number of pages: {book?.pages}</p>
+                <p>Year of publication: {book?.publisherDate}</p>
+                <p>Wait line: {book?.queueSize}</p>
+                <p>Current location: {book?.location}</p>
             </div>
             <button className='button'>Get book</button>
         </div>

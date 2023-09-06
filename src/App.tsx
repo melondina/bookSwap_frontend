@@ -36,7 +36,6 @@ function App() {
             dispatch(setUser(getMe.data));
           }
         } catch (error) {
-          // Handle any errors here
           console.error("Error fetching data:", error);
         }
       } 
