@@ -3,6 +3,8 @@ import { Route, Routes } from "react-router";
 import Header from "./components/Header.tsx";
 import Home from "./pages/Home.tsx";
 import './scss/app.scss';
+import './scss/components/_footer.scss';
+import './scss/components/_termsAndconditions.scss'
 import React from "react";
 import Footer from "./components/Footer.tsx";
 import Registration from "./components/Registration.tsx";
