@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import logo from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 
-
-
 const Header: React.FC = () => {
+<<<<<<< HEAD
+    
+=======
 
     const user = useSelector(state => state.user.user);
     // console.log("userHeader", user);
@@ -13,6 +14,7 @@ const Header: React.FC = () => {
 
 
    
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 return (
     <div className="header">
         <div className="container">
@@ -30,6 +32,20 @@ return (
             <Link to="/registration" className='links'>
                 Sign Up
             </Link>
+<<<<<<< HEAD
+            <Link to="/library" className='links'>
+                My library
+            </Link>
+            <Link to="/profile" className='links'>
+                My profile
+            </Link>
+            <Link to="/logout" className='links'>
+                Log out
+            </Link>
+            
+            
+            
+=======
 
             </>
 
@@ -48,11 +64,13 @@ return (
 
              </>             
 }
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 
         </div>
         </div>
     </div>
     </div>
+   
     );      
 }
 

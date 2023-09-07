@@ -67,6 +67,13 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
 }
 
 
+<<<<<<< HEAD:src/components/Card/index.tsx
+export default Card;
+
+
+
+=======
 export default Cards;
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f:src/components/Cards/index.tsx
 
 

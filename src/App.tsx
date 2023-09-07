@@ -15,11 +15,16 @@ import TermsAndConditions from "./components/TermsAndConditions.tsx";
 import Logout from "./pages/Logout.tsx";
 import Library from "./pages/Library.tsx";
 import Profile from "./pages/Profile.tsx";
+<<<<<<< HEAD
+import Filter from "./components/Filter.tsx";
+import Search from "./components/Search.tsx";
+=======
 import AddNewBook from "./pages/AddNewBook.tsx";
 import BookInfo from "./pages/BookInfo.tsx";
 import Registration from "./components/UserAuth/Registration.tsx";
 import Login from "./components/UserAuth/Login.tsx";
 
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 
 
 function App() {
@@ -54,9 +59,15 @@ function App() {
             <Route path="/termsAndConditions" element={<TermsAndConditions />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/library" element={<Library />} />
+<<<<<<< HEAD
+            <Route path="/profile" element={<Profile />} />n
+            <Route path="/filter" element={<Filter />} />
+            <Route path="/searchBook" element={<Search />} />
+=======
             <Route path="/profile" element={<Profile />} />
             <Route path="/addBook" element={<AddNewBook />} />
             <Route path="/bookInfo/:id" element={<BookInfo />} />
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
           </Routes>
         </div>
         <Footer />
@@ -65,3 +76,4 @@ function App() {
 }
 
 export default App;
+

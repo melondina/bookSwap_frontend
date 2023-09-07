@@ -1,3 +1,14 @@
+<<<<<<< HEAD
+import React from 'react';
+import MyLibraryBox from '../components/MyLibraryBox.tsx';
+
+const Library: React.FC = () => {
+    return (
+        <div>
+            <MyLibraryBox />
+        </div>
+    )}
+=======
 import React, { useEffect } from 'react';
 import { useSelector } from "react-redux";
 
@@ -69,4 +80,5 @@ const Library: React.FC = () => {
 }
 
 export default Library;
+>>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 

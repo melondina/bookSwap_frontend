@@ -1,0 +1,43 @@
+@import '../variables';
+
+.form {
+    padding-left: 65%;
+    width: 30%;
+    margin: 20px 0px;
+    border-radius: 1%;
+
+    &__wrap {
+    
+    display: flex;
+    flex-direction: column;
+    &:not(:last-child) {
+    margin-bottom: 10px;
+
+    }
+}
+    &__input {
+        
+        @include input();
+        margin-left: 5px;
+        width: 424px;
+        height: 48px;
+        border-radius: 5px;
+        line-height: 48px;
+              
+    &::placeholder {
+        padding-left: 50%;    
+        color: #605e5e;
+        font-size: 15px;
+        font-weight: 500;
+        line-height: 5px;
+        text-align: left;
+        }
+    }
+      
+    .filter_button {
+        
+        margin: 0px 460px;
+        margin-top: -50px;
+        border-radius: 2%;
+    }         
+}
