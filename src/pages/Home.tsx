@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from "../components/Card/index.tsx";
 import Skeleton from "../components/Card/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
+import Search from '../components/Search.tsx';
 
 
 const Home: React.FC = () => {
@@ -42,6 +43,7 @@ const Home: React.FC = () => {
 
     return (
         <div>
+           
             <div className="header-bottom">
                 <h1 className="header-bottom_title">
                 Connect, Share, Immerse
@@ -49,19 +51,27 @@ const Home: React.FC = () => {
                 <p className='header-bottom_desc'>
                 Words Shared, Worlds Explored
                 </p>
+                
             </div>
             <div className="container">
+              <Search />
                 <h2 className="content__title">Available now</h2>
                 <div className="content__items">
                     {isLoading 
-                    ? skeletons 
+                    ? skeletons
                     : <Card />}
                 </div>
-                <button className="button content__button">
+               
+            <button className="button content__button">
                     See all
                 </button>
+                
             </div>
-        </div>
-    )}
+            </div>
+    
+    )
+}
 
 export default Home;
+
+

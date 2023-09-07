@@ -11,6 +11,9 @@ import TermsAndConditions from "./components/TermsAndConditions.tsx";
 import Logout from "./pages/Logout.tsx";
 import Library from "./pages/Library.tsx";
 import Profile from "./pages/Profile.tsx";
+import Filter from "./components/Filter.tsx";
+import Search from "./components/Search.tsx";
+
 
 function App() {
 
@@ -25,7 +28,9 @@ function App() {
             <Route path="/termsAndConditions" element={<TermsAndConditions />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/library" element={<Library />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/profile" element={<Profile />} />n
+            <Route path="/filter" element={<Filter />} />
+            <Route path="/searchBook" element={<Search />} />
           </Routes>
         </div>
         <Footer />
@@ -34,3 +39,4 @@ function App() {
 }
 
 export default App;
+

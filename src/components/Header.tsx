@@ -2,11 +2,8 @@ import React from 'react';
 import logo from '../assets/img/logo.png';
 import { Link } from 'react-router-dom';
 
-
-
 const Header: React.FC = () => {
     
-
 return (
     <div className="header">
         <div className="container">
@@ -31,11 +28,15 @@ return (
             <Link to="/logout" className='links'>
                 Log out
             </Link>
+            
+            
+            
 
         </div>
         </div>
     </div>
     </div>
+   
     );      
 }
 
