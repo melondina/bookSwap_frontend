@@ -1,6 +1,13 @@
 @import '../variables';
 
 .card-block {
+  .skeleton {
+    border-color: transparent;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+  
+    
+  }
   width: 280px;
   margin-bottom: 20px;
   border-bottom-right-radius: 15px;

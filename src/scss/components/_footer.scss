@@ -1,7 +1,11 @@
 .footer {
     display: flex;
     justify-content: space-between;
-
+    background-color: #F4F5F6;
+    width: 100%;
+    padding: 50px;
+    margin: auto;
+    
     &-left {
         display: flex;
         flex-direction: column;
@@ -13,6 +17,18 @@
     flex-direction: column;
     margin: 2px;
 }
+
+.insta {
+    margin-left: 10px;
+}
+
+.twit {
+    margin-left: 10px;
+}
+
+.linkd {
+    margin-left: 10px;
+}
 .terms {
         font-family: Rubik;        
         font-size: 20px;
@@ -21,6 +37,5 @@
         text-align: right;
 
 }
-
 
 

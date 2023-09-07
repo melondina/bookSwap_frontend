@@ -1,14 +1,5 @@
 @import '_mixin.scss';
 
-.form-container {
-    &_title {
-        margin-bottom: 10px;
-        font-size: 28px;
-        line-height: 38px;
-        font-weight: 600;
-    }
-}
-
 .form {
     width: 40%;
     margin: 15px 0;
