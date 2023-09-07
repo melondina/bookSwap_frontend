@@ -64,10 +64,10 @@ const Login: React.FC = () => {
                         <label className='form__label' htmlFor="password">Password</label>
                         <input className='form__input' type={show?"text":"password"} name="password" onChange={handleLoginForm} value={loginUser.password} placeholder='Enter password' />
                     </div>
-                    <button type="submit" className='button'>Continue</button>
+                    <button type="submit" className='button'>Log In</button>
                     <p className='form__bottom'>
                     Don`t have an account?
-                    <button className='form__links'> Sign Up</button>
+                    <button className='form__links button' onClick={() => navigate("/registration")}> Sign Up</button>
                 </p>
                 </form>
                 <button type="button" onClick={()=>setShow((prev) => !prev)}>Show</button>
