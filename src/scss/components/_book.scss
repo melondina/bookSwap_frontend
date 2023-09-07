@@ -1,0 +1,44 @@
+@import '../variables';
+
+.book {
+    width: 90%;
+    margin: 0 auto;
+    
+    &__conteiner {
+        display: flex;
+        justify-content: flex-start;
+        margin: 10px;
+        
+    }
+
+    &__cover {
+        width: 390px;    }
+
+    &__img {
+        width: 370px;
+        height: 490px;
+        margin: 10px;
+    }
+
+    &__info {
+        margin: 10px;
+    }
+
+    &__title {
+        font-weight: bold;
+        font-size: 28px;
+    }
+
+    &__line {
+        margin-bottom: 15px;
+
+        &__1 {
+            margin: 15px 0;
+        }
+    }
+
+    &__button {
+        margin-bottom: 15px;
+
+    }
+}

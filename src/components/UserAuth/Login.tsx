@@ -1,10 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 
 import { initUserAuth } from './initUser.ts';
 import { getUser, userLogin } from './userAuthOperation/userAuthOperation.ts';
+import eye from '../../assets/img/visibility_off.svg';
 import { setUser } from '../../redux/slices/usersSlice.js';
 
 
@@ -60,9 +61,10 @@ const Login: React.FC = () => {
                         <label  className='form__label' htmlFor="email">Email</label>
                         <input className='form__input' type="email" name="email" onChange={handleLoginForm} value={loginUser.email} placeholder='Enter your email' />
                     </div>
-                    <div className='form__wrap'>
+                    <div className='form__wrap form__wrap__eye'>
                         <label className='form__label' htmlFor="password">Password</label>
-                        <input className='form__input' type={show?"text":"password"} name="password" onChange={handleLoginForm} value={loginUser.password} placeholder='Enter password' />
+                        <input className='form__input form__input__eye' type={show?"text":"password"} name="password" onChange={handleLoginForm} value={loginUser.password} placeholder='Enter password' />
+                        <button className="button__eye" type="button" onClick={() => setShow((prev) => !prev)}><img width="24px"  src={eye} alt="eye" /></button>
                     </div>
                     <button type="submit" className='button'>Log In</button>
                     <p className='form__bottom'>
@@ -70,7 +72,6 @@ const Login: React.FC = () => {
                     <button className='form__links button' onClick={() => navigate("/registration")}> Sign Up</button>
                 </p>
                 </form>
-                <button type="button" onClick={()=>setShow((prev) => !prev)}>Show</button>
         </div>
 
     )

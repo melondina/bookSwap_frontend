@@ -92,24 +92,29 @@ const BookInfo: React.FC<IBooks> = () => {
 
 
     return (
-        <div>
-            <div>
-            <img src={book?.cover} alt="Book" />
+        <div className='book'>
+            <div className='book__conteiner'>
+                <div className='book__cover'>
+                    <img className='book__img' src={book?.cover} alt="Book" />
+                </div>
+                <div className='book__info'>
+                    <p className='book__title'>{book?.title}</p>
+                    <p className='book__line__1'>{book?.author}</p>
+                    <p className='book__line'>Genre: {book?.category}</p>
+                    <p className='book__line'>Language: {book?.language}</p>
+                    <p className='book__line__1'>Number of pages: {book?.pages}</p>
+                    <p className='book__line'>Year of publication: {book?.publisherDate}</p>
+                    <p>Description:</p>
+                    <p className='book__line'> {book?.description}</p>
+                    <p className='book__line'>Wait line: {book?.queueSize}</p>
+                    <p className='book__line'>Current location: {book?.location}</p>
+                    <button className='button book__button' onClick={() => 
+                    {user===null ? navigate("/login") : handleGetBook()} }>Get book</button>
+
+                </div>
             </div>
-            <div>
-                <p>{book?.title}</p>
-                <p>{book?.author}</p>
-                <p>{book?.category}</p>
-                <p>{book?.language}</p>
-                <p>Description: {book?.description}</p>
-                <p>Number of pages: {book?.pages}</p>
-                <p>Year of publication: {book?.publisherDate}</p>
-                <p>Wait line: {book?.queueSize}</p>
-                <p>Current location: {book?.location}</p>
-            </div>
-            <button className='button' onClick={() => 
-            {user===null ? navigate("/login") : handleGetBook()} }>Get book</button>
         </div>
+
     )}
 
     export default BookInfo;

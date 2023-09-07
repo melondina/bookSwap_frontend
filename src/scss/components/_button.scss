@@ -11,6 +11,15 @@
   @include noselect();
   background-color: $darkblue;
 
+  &__eye {
+    border: none;
+    position: absolute;
+    top: 33px;
+    right: 20px;
+    background-color: transparent;
+  }
+
+
   &,
   span {
     color: $white;

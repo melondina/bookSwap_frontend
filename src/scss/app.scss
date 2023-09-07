@@ -3,6 +3,11 @@
 
 @import './components/all';
 
+.container {
+  width: $container-width;
+  margin: 0 auto;
+}
+
 body {
   background-color: $background;
 }

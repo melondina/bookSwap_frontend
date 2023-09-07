@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-import React from 'react';
-=======
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
@@ -10,8 +7,6 @@ const useUserSelector = () => {
     return useSelector((state) => state.user.user);
 };
 
-
->>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 
 const Profile: React.FC = () => {
 

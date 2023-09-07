@@ -1,19 +1,4 @@
-<<<<<<< HEAD
 import React, { useEffect, useState } from 'react';
-=======
-<<<<<<< HEAD
-import React from 'react';
-import MyLibraryBox from '../components/MyLibraryBox.tsx';
-
-const Library: React.FC = () => {
-    return (
-        <div>
-            <MyLibraryBox />
-        </div>
-    )}
-=======
-import React, { useEffect } from 'react';
->>>>>>> c523cecf7a31d0e9b2e71d8c98818d06a5caaced
 import { useSelector } from "react-redux";
 
 import { Link, useNavigate } from 'react-router-dom';
@@ -180,5 +165,5 @@ const Library: React.FC = () => {
 }
 
 export default Library;
->>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
+
 

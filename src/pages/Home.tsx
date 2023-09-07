@@ -3,11 +3,8 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
-<<<<<<< HEAD
 import Search from '../components/Search.tsx';
-=======
 import Cards from '../components/Cards/index.tsx';
->>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
 
 
 const Home: React.FC = () => {
@@ -46,7 +43,6 @@ const Home: React.FC = () => {
 
     return (
         <div>
-           
             <div className="header-bottom">
                 <h1 className="header-bottom_title">
                     Connect, Share, Immerse
@@ -54,40 +50,24 @@ const Home: React.FC = () => {
                 <p className='header-bottom_desc'>
                     Words Shared, Worlds Explored
                 </p>
-                
             </div>
             <div className="container">
-              <Search />
+                <Search />
                 <h2 className="content__title">Available now</h2>
                 <div className="content__items">
-<<<<<<< HEAD
                     {isLoading 
                     ? skeletons
-                    : <Card />}
+                    : showAll
+                    ? <Cards />
+                    : <Cards/>}
                 </div>
-               
-            <button className="button content__button">
+            </div>
+            {!showAll && (
+                <button className="button content__button" onClick={() => setShowAll(true)}>
                     See all
                 </button>
-                
-            </div>
-            </div>
-    
-=======
-                    {isLoading
-                        ? skeletons
-                        : showAll 
-                        ? <Cards />
-                        : <Cards slice={5} />}
-                </div>
-                {!showAll && (
-                    <button className="button content__button" onClick={() => setShowAll(true)}>
-                        See all
-                    </button>
                 )}
             </div>
-        </div>
->>>>>>> 8977cae69c94aac8b4d8bebd22b9174db0a2992f
     )
 }
 
