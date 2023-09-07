@@ -56,7 +56,7 @@ function App() {
             <Route path="/library" element={<Library />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/addBook" element={<AddNewBook />} />
-            <Route path="/bookInfo/:id" element={<BookInfo />} />
+            <Route path="/bookInfo/:id" element={<BookInfo bookId={0} title={""} author={""} description={""} category={""} language={""} pages={0} publisherDate={0} cover={""} location={""} queueSize={0} />} />
           </Routes>
         </div>
         <Footer />

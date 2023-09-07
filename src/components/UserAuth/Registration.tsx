@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { initUserAuth } from './initUser.ts';
 import { userRegistr } from './userAuthOperation/userAuthOperation.ts';
 
-const BASEURL = "http://localhost:8080"
+// const BASEURL = "http://localhost:8080"
 
 
 const Registration: React.FC = () => {

@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useNavigate, useParams } from 'react-router-dom';
 
 
 
@@ -19,12 +20,58 @@ interface IBooks {
 }
 
 
+
 const BookInfo: React.FC<IBooks> = () => {
 
+    const navigate= useNavigate();
+    const user = useSelector((state) => state.user.user);
+
     const {id} = useParams();
-    console.log(id);
+    console.log("bookId", id);
+
+    // console.log("userId", user.id)
+
 
     const [book, setBook] = useState<IBooks | null>(null);
+
+    const [getBook, setGetBook] = useState({
+        bookId: '',
+        userId: ''
+    })
+
+    interface IGetBook {
+        bookId: string,
+        userId: string
+    }
+
+    
+    const getBookCreating = async (getBook: IGetBook) => {
+        try {
+            const newGetBook = {
+                ...getBook,
+                userId: user.id,
+                bookId: id
+            };
+            console.log("newGetBook", newGetBook)
+            const data = await axios.post(`/api/books/getting`, newGetBook);
+            console.log("getBookCreating", data)
+            return data;
+        } catch (error) {
+            console.log("getBookCreating",error)
+        }
+    }
+
+    const handleGetBook = async () => {
+        try {
+            const getBookData = await getBookCreating(getBook);
+            if(getBookData?.status===200) {
+                navigate("/library");
+            }
+            console.log("getBookData", getBookData)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     useEffect(() => {
 
@@ -34,7 +81,7 @@ const BookInfo: React.FC<IBooks> = () => {
             if(response?.status === 200) {
                 setBook(response.data);
             }
-            console.log("dataBook", response.data.title);
+            // console.log("dataBook", response.data.title);
           } catch (error) {
             console.error('Ошибка при запросе к серверу:', error);
           }
@@ -60,7 +107,8 @@ const BookInfo: React.FC<IBooks> = () => {
                 <p>Wait line: {book?.queueSize}</p>
                 <p>Current location: {book?.location}</p>
             </div>
-            <button className='button'>Get book</button>
+            <button className='button' onClick={() => 
+            {user===null ? navigate("/login") : handleGetBook()} }>Get book</button>
         </div>
     )}
 
