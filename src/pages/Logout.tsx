@@ -1,22 +1,20 @@
 import axios from 'axios';
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom'; // Импортируем useNavigate
+import { Link, useNavigate } from 'react-router-dom'; 
 import { setUser } from '../redux/slices/usersSlice';
 
 const Logout: React.FC = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate(); // Получаем функцию navigate
+    const navigate = useNavigate(); 
 
     const handleLogout = async () => {
         try {
             await axios.post(`/api/logout`, { withCredentials: true });
             dispatch(setUser(null));
 
-            // Выполняем перенаправление на главную страницу
             navigate('/');
         } catch (error) {
-            // Обработка ошибок
         }
     }
 
