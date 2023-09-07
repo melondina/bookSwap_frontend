@@ -47,7 +47,9 @@ const Profile: React.FC = () => {
     const userProfileCreating = async (updateUser: IUserProfile) => {
         try {
             const data = await axios.put(`/api/users/${user.id}`, updateUser, { withCredentials: true});
+            console.log("userProfileCreating", data)
             return data;
+            
         } catch (error) {
             console.log("userProfileCreating", error)
         }
@@ -63,12 +65,16 @@ const Profile: React.FC = () => {
 
             const userUpdateData = await userProfileCreating(updateUser);
             if(userUpdateData?.status===200) {
+                console.log("userUpdateData", userUpdateData)
                 navigate("/library")
             }
         } catch (error) {
             console.log(error)
         }
     }
+
+    console.log(user)
+
 
 
     useEffect(() => {

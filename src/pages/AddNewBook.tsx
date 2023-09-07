@@ -142,6 +142,7 @@ const AddNewBook: React.FC = () => {
                         <option value="3">French</option>
                         <option value="4">Russian</option>
                         <option value="5">Italian</option>
+                        <option value="6">Ukrainian</option>
                     </select>
                 </div>
                 </div>

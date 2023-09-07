@@ -66,7 +66,7 @@ const BookInfo: React.FC<IBooks> = () => {
             const getBookData = await getBookCreating(getBook);
             if(getBookData?.status===200) {
                 navigate("/library");
-            }
+            } else (navigate("/"))
             console.log("getBookData", getBookData)
         } catch (error) {
             console.log(error)
