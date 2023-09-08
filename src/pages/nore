@@ -1,0 +1,36 @@
+    // const [getBook, setGetBook] = useState({
+    //     bookId: '',
+    //     userId: ''
+    // })
+
+    // interface IGetBook {
+    //     bookId: string,
+    //     userId: string
+    // }
+
+    // const getBookCreating = async (getBook: IGetBook) => {
+    //     try {
+    //         const newGetBook = {
+    //             userId: user.id,
+    //             bookId: id
+    //         };
+    //         console.log("newGetBook", newGetBook)
+    //         const data = await axios.post(`/api/books/getting`, newGetBook);
+    //         console.log("getBookCreating", data)
+    //         return data;
+    //     } catch (error) {
+    //         console.log("getBookCreating",error)
+    //     }
+    // }
+
+    // const handleGetBook = async () => {
+    //     try {
+    //         const getBookData = await getBookCreating(getBook);
+    //         if(getBookData?.status===201) {
+    //             navigate("/library");
+    //         }
+    //         console.log("getBookData", getBookData)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }

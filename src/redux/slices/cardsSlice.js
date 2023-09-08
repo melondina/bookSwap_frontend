@@ -10,7 +10,7 @@ export const cardsSlice = createSlice({
   initialState,
   reducers: {
     setItems(state, action) {
-        state.items = action.payload;
+      state.items = action.payload;
     },
   },
 })

@@ -1,14 +1,5 @@
 @import '_mixin.scss';
 
-.form-container {
-    &_title {
-        margin-bottom: 10px;
-        font-size: 28px;
-        line-height: 38px;
-        font-weight: 600;
-    }
-}
-
 .form {
     width: 40%;
     margin: 15px 0;
@@ -16,6 +7,10 @@
     &__wrap {
     display: flex;
     flex-direction: column;
+    &__eye {
+        position: relative;
+    }
+    
     &:not(:last-child) {
         margin-bottom: 30px;
     }
@@ -27,6 +22,9 @@
         padding-left: 18px;
         border-radius: 10px;
         line-height: 40px;
+        &__eye {
+            position: relative;
+        }
         &::placeholder {
             color: #7A828A;
             font-size: 15px;
