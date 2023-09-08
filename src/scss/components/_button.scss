@@ -11,6 +11,15 @@
   @include noselect();
   background-color: $darkblue;
 
+  &__eye {
+    border: none;
+    position: absolute;
+    top: 33px;
+    right: 20px;
+    background-color: transparent;
+  }
+
+
   &,
   span {
     color: $white;
@@ -36,4 +45,11 @@
     margin-top: 15px;
     width: 100%;
   }
+
+  &__yesno {
+  width: 70px;
+  height: 35px;
+  margin: 5px;
+  }
+  
 }

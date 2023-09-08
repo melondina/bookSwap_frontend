@@ -1,30 +1,35 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import MyLibraryBox from '../components/MyLibraryBox.tsx';
+import MyLibraryBox from "../components/MyLibraryBox.tsx";
 import axios from "axios";
+import { useSelector } from 'react-redux';
+
 
 
 const AddNewBook: React.FC = () => {
+
+    const user = useSelector(state => state.user.user);
+
     
     const [createNewBook, setCreateNewBook] = useState({
         title: '',
         author: '',
         description: '',
         categoryId: '',
-        language: '',
+        languageId: '',
         pages: '',
         publisherDate: '',
         cover: '',
         owner: ''
     });
-    console.log("AddNewBook")
+    // console.log("AddNewBook")
 
     interface ICreateNewBook {
         title: string,
         author: string,
         description: string,
         categoryId: string,
-        language: string,
+        languageId: string,
         pages: string,
         publisherDate: string,
         cover: string,
@@ -32,10 +37,16 @@ const AddNewBook: React.FC = () => {
     }
 
     const navigate = useNavigate();
+    // console.log(userId)
 
     const bookCreating = async (createNewBook: ICreateNewBook) => {
         try {
-            const data = await axios.post(`/api/books`, createNewBook);
+            const newBookData = {
+                ...createNewBook,
+                owner: user.id,
+            };
+            console.log(newBookData)
+            const data = await axios.post(`/api/books`, newBookData);
             console.log("bookCreating", data)
             return data;
         } catch (error) {
@@ -43,12 +54,6 @@ const AddNewBook: React.FC = () => {
         }
     }
     
-    // const handleAddNewBookForm = (event: ChangeEvent<HTMLInputElement>) => {
-    //     const {name, value} = event.target;
-    //     setCreateNewBook((prev) => ({
-    //         ...prev, [name]:value
-    //     }))
-    // }
 
     const handleAddBookForm = (event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement>) => {
         const {name, value} = event.target;
@@ -57,20 +62,11 @@ const AddNewBook: React.FC = () => {
         }))
     }
 
-    // const handleAddNewBookSelect = (event: ChangeEvent<HTMLSelectElement>) => {
-    //     const {name, value} = event.target;
-    //     setCreateNewBook((prev) => ({
-    //         ...prev, [name]:value
-    //     }))
-    // }
 
     const handleAddNewBookSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // const newBook = {
-        //     ...createNewBook, owner: userId;
-        // }
         try {
-            const bookData = await bookCreating(newBook);
+            const bookData = await bookCreating(createNewBook);
             if(bookData?.status===201) {
                 navigate("/library");
             }
@@ -79,8 +75,7 @@ const AddNewBook: React.FC = () => {
             console.log(error)
         }
     }
-
-        
+       
 
     return (
         <div className='container'>
@@ -111,6 +106,20 @@ const AddNewBook: React.FC = () => {
                         <option value="" disabled>Choose genre</option>
                         <option value="1">Esse</option>
                         <option value="2">Detective</option>
+                        <option value="3">Fantasy</option>
+                        <option value="4">Roman</option>
+                        <option value="5">Poetry</option>
+                        <option value="6">Stories</option>
+                        <option value="7">Biography</option>
+                        <option value="8">History</option>
+                        <option value="9">Fantastic</option>
+                        <option value="10">Adventures</option>
+                        <option value="11">Fairy tales</option>
+                        <option value="12">Publicity</option>
+                        <option value="13">Documentary prose</option>
+                        <option value="14">Humor</option>
+                        <option value="15">Horrors</option>
+                        <option value="16">Fanfic</option>
                     </select>
                 </div>
 
@@ -126,13 +135,16 @@ const AddNewBook: React.FC = () => {
                 </div>
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="language">LANGUAGE</label>
-                    <input className='form__input' type="text" name="language" onChange={handleAddBookForm} value={createNewBook.language} placeholder='Enter a book language' />
+                    <select className='form__input' name="languageId" onChange={handleAddBookForm} value={createNewBook.languageId} >
+                        <option value="" disabled>Enter a book language</option>
+                        <option value="1">English</option>
+                        <option value="2">German</option>
+                        <option value="3">French</option>
+                        <option value="4">Russian</option>
+                        <option value="5">Italian</option>
+                        <option value="6">Ukrainian</option>
+                    </select>
                 </div>
-                <div className='form__wrap'>
-                    <label  className='form__label' htmlFor="language">OWNER</label>
-                    <input className='form__input' type="text" name="owner" onChange={handleAddBookForm} value={createNewBook.owner} placeholder='Enter a book language' />
-                </div>
-
                 </div>
                 
                 <div className="addNewBook-wrap__bottom">

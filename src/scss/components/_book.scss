@@ -1,0 +1,64 @@
+@import '../variables';
+
+.book {
+    width: 866px;
+    margin: 0 auto;
+    
+    &__container {
+        display: inline-flex;
+        justify-content: center;
+        align-items: flex-start;
+        gap: 49px;
+        margin: 89px 0;
+    }
+
+    &__img {
+        width: 337px;
+        height: 490px;
+    }
+
+    &__title {
+        font-weight: bold;
+        font-size: 32px;
+        line-height: 40px;
+        color: #182135;
+    }
+
+    &__genre {
+        font-size: 24px;
+        line-height: 32px;
+        color: #848484;
+    }
+
+    &__textbold {
+        margin-bottom: 6px;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 24px;
+        color: #000;
+
+        &__1 {
+            margin: 32px 0 6px;
+            font-weight: bold;
+            font-size: 16px;
+            line-height: 24px;
+            color: #000;
+        }
+    }
+
+    &__column {
+        display: flex;
+        justify-content: space-between;
+        width: 250px;
+    }
+
+    &__button {
+        margin-top: 32px;
+        display: flex;
+        justify-content: right;
+    }
+
+    .button {
+        width: 172px;
+    }
+}

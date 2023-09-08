@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link, useParams, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from "react-redux";
 
 interface IBooks {
@@ -27,8 +27,9 @@ interface ICardProps {
 
 const Cards: React.FC<ICardProps> = ({ slice }) => {
 
-    const items = useSelector((state:IBooksObject) => state.cards.items);
-    console.log("items", items);
+    const items = useSelector((state: IBooksObject | undefined) => state?.cards?.items || []);
+    // console.log("items", items[0].title);
+   console.log("items", items && items.length > 0 ? items[0].title : "No items");
 
     
     const navigate = useNavigate();
@@ -56,7 +57,7 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
                     <p className="card-block-desc__top">{author}</p>
                     <p className="card-block-desc__bottom">{category}</p>
                     <p className="card-block-desc__bottom">{language}</p>
-                    <Link to="/bookInfo" className="button button-card" onClick={() => getBookById(bookId)}> More info </Link>
+                    <button className="button button-card" onClick={() => getBookById(bookId)}> More info </button>
                 </div>
             </div>
         </div>

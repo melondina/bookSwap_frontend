@@ -1,0 +1,49 @@
+@import '_mixin.scss';
+
+.filter_container {
+    margin: 0 auto;
+    width: 816px;
+    height: 342px;
+    border-radius: 1%;
+    border-style: groove;
+    padding: 20px;
+    background-color: #EDF2F7;
+    font-size: 20px;
+    line-height: 35px;
+    letter-spacing: 1px;
+    
+}
+
+.checkbox1  {
+   
+    float:left;
+    width: 200px;
+    height: 275px;
+    margin-left: 20px;    
+}
+.checkbox2   {
+   
+    float:left;
+    width: 200px;
+    height: 275px;
+    margin-left: 30px;    
+}
+
+
+.checkbox3  {
+  
+    float:left;
+    width: 200px;
+    height: 275px;
+    margin-right: 10px;     
+}
+   
+.columns-3 {
+    column-count: 3;
+}
+
+.view__button {
+    font-size: 15px;
+    margin-left: 20px;
+    font-weight:600;
+}

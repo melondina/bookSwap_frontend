@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
+import Search from '../components/Search.tsx';
 import Cards from '../components/Cards/index.tsx';
 
 
@@ -26,7 +27,7 @@ const Home: React.FC = () => {
                         return res.json();
                     })
                     .then((json) => {
-                        console.log(json.books)
+                        console.log("books.json", json.books)
                         dispatch(setItems(json.books));
                     });
             } catch (error) {
@@ -51,22 +52,25 @@ const Home: React.FC = () => {
                 </p>
             </div>
             <div className="container">
+                <Search />
                 <h2 className="content__title">Available now</h2>
                 <div className="content__items">
-                    {isLoading
-                        ? skeletons
-                        : showAll 
-                        ? <Cards />
-                        : <Cards slice={5} />}
+                    {isLoading 
+                    ? skeletons
+                    : showAll
+                    ? <Cards />
+                    : <Cards/>}
                 </div>
-                {!showAll && (
-                    <button className="button content__button" onClick={() => setShowAll(true)}>
-                        See all
-                    </button>
+            </div>
+            {!showAll && (
+                <button className="button content__button" onClick={() => setShowAll(true)}>
+                    See all
+                </button>
                 )}
             </div>
-        </div>
     )
 }
 
 export default Home;
+
+
