@@ -4,6 +4,7 @@ import { setLocation, resetLocation } from '../redux/slices/locationFilterSlice'
 import { setCategory, resetCategory } from '../redux/slices/categoryFilterSlice';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
@@ -40,6 +41,20 @@ const Filter: React.FC = () => {
   }
 
   const handleResetFilters = () => {
+    dispatch(resetLanguage());
+    dispatch(resetLocation());
+    dispatch(resetCategory());
+    window.location.reload();
+  };
+
+  const handleGoHome = () => {
+    dispatch(resetLanguage());
+    dispatch(resetLocation());
+    dispatch(resetCategory());
+    window.location.reload();
+  };
+
+  const resetFilters= () => {
     dispatch(resetLanguage());
     dispatch(resetLocation());
     dispatch(resetCategory());
@@ -104,6 +119,8 @@ const Filter: React.FC = () => {
       </div>
       {/* todo add cancel button, add refresh filter button, add button search with filters */}
       <button onClick={handleResetFilters}>Clean filters</button>
+      <Link to="/" onClick={resetFilters}> Back to HomePage </Link>
+      <Link to="/" > Use filters </Link>
     </div>
   );
 };

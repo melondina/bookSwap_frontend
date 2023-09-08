@@ -8,13 +8,6 @@ import Cards from '../components/Cards/index.tsx';
 
 
 const Home: React.FC = () => {
-    const selectedLanguage = useSelector((state) => state.language);
-    console.log(selectedLanguage);
-    const selectedLocation = useSelector((state) => state.location);
-    console.log(selectedLocation);
-    const selectedCategory = useSelector((state) => state.category);
-    console.log(selectedCategory);
-
     const dispatch = useDispatch();
 
     const [isLoading, setIsLoading] = useState(true);
