@@ -27,27 +27,17 @@ const Filter: React.FC = () => {
 
   const handleLanguageChange = (language: string) => {
     dispatch(setLanguage(language));
-    console.log(`Выбрана категория ${language}`);
   };
 
   const handleLocationChange = (location: string) => {
     dispatch(setLocation(location));
-    console.log(`Выбрана категория ${location}`);
   }; 
 
   const handleCategoryChange = (category: string) => {
     dispatch(setCategory(category));
-    console.log(`Выбрана категория ${category}`);
   }
 
   const handleResetFilters = () => {
-    dispatch(resetLanguage());
-    dispatch(resetLocation());
-    dispatch(resetCategory());
-    window.location.reload();
-  };
-
-  const handleGoHome = () => {
     dispatch(resetLanguage());
     dispatch(resetLocation());
     dispatch(resetCategory());
@@ -117,7 +107,6 @@ const Filter: React.FC = () => {
           ))}
         </ul>
       </div>
-      {/* todo add cancel button, add refresh filter button, add button search with filters */}
       <button onClick={handleResetFilters}>Clean filters</button>
       <Link to="/" onClick={resetFilters}> Back to HomePage </Link>
       <Link to="/" > Use filters </Link>
