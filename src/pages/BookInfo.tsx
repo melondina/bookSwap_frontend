@@ -1,7 +1,9 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
+import { navigationStatus } from '../redux/slices/navigationSlice.js'
+
 
 
 
@@ -22,6 +24,12 @@ interface IBooks {
 
 
 const BookInfo: React.FC<IBooks> = () => {
+
+    const getNavigationStatus = useSelector((state) => state.navigation);
+    // console.log("🚀 ~ file: BookInfo.tsx:27 ~ getNavigationStatus:", getNavigationStatus)
+
+    const dispatch = useDispatch();
+
 
     const navigate = useNavigate();
     const user = useSelector((state) => state.user.user);
@@ -73,6 +81,35 @@ const BookInfo: React.FC<IBooks> = () => {
         }
     }
 
+    const sendBookCreating = async (getBook: IGetBook) => {
+        try {
+            const newSendBook = {
+                ...getBook,
+                userId: user.id,
+                bookId: id
+            };
+            console.log("newGetBook", newSendBook)
+            const data = await axios.post(`/api/books/send/to`, newSendBook);
+            console.log("sendBookCreating", data)
+            return data;
+        } catch (error) {
+            console.log("sendBookCreating", error)
+        }
+    }
+
+    const handleSendBook = async () => {
+        try {
+            const sendBookData = await sendBookCreating(getBook);
+            if (sendBookData?.status === 200) {
+                navigate("/library");
+            } else (navigate("/"))
+            console.log("getBookData", sendBookData)
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+
     useEffect(() => {
 
         const fetchBook = async () => {
@@ -119,7 +156,11 @@ const BookInfo: React.FC<IBooks> = () => {
                     <p className='book__textbold__1'>Current Location:</p>
                     <p className='book__textbold'>{book?.location}</p>
                     <div className='book__button'>
-                        <button className='button' onClick={() => { user === null ? navigate("/login") : handleGetBook() }}>Get book</button>
+                        {getNavigationStatus === navigationStatus.get ?<button className='button' onClick={() => { user === null ? navigate("/login") : handleGetBook() }}>Get book</button> : null}
+                        {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate("/addBook")} >Update Book</button> : null}
+                        {getNavigationStatus === navigationStatus.send ?<button className='button' onClick={handleSendBook}>Send Book</button> : null}
+                        {getNavigationStatus === navigationStatus.history ? <button className='button' >Leave a comment</button> : null}
+
                     </div>
                 </div>
             </div>

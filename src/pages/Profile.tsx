@@ -3,12 +3,22 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
+
+
+
 const useUserSelector = () => {
     return useSelector((state) => state.user.user);
 };
 
 
 const Profile: React.FC = () => {
+
+    interface IUserProfile {
+        firstName: string,
+        lastName: string,
+        postalCode: string,
+    }
+    
 
     const [postCode, setPostCode] = useState('');
 
@@ -21,11 +31,10 @@ const Profile: React.FC = () => {
     });
 
 
-    interface IUserProfile {
-        firstName: string,
-        lastName: string,
-        postalCode: string,
-    }
+
+    const navigate = useNavigate();
+    const user = useUserSelector();
+
 
     const handleUpdateUserForm = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -40,8 +49,6 @@ const Profile: React.FC = () => {
 
     }
 
-    const navigate = useNavigate();
-    const user = useUserSelector();
 
     const getHome = () => {
         navigate(`/`);
@@ -61,12 +68,9 @@ const Profile: React.FC = () => {
     const handleUpdateUserSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
+            const newUserUpdate = {...updateUser, postalCode: postCode}
 
-            setUpdateUser((prev) => ({
-                ...prev, postalCode: postCode
-            }))
-
-            const userUpdateData = await userProfileCreating(updateUser);
+            const userUpdateData = await userProfileCreating(newUserUpdate);
             if (userUpdateData?.status === 200) {
                 console.log("userUpdateData", userUpdateData)
                 navigate("/library")
@@ -76,7 +80,7 @@ const Profile: React.FC = () => {
         }
     }
 
-    console.log(user)
+    // console.log(user)
 
 
 
@@ -106,11 +110,11 @@ const Profile: React.FC = () => {
                 <form onSubmit={handleUpdateUserSubmit} className='form'>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="name">FIRST NAME</label>
-                        <input className='form__input' type="text" name="firstName" onChange={handleUpdateUserForm} value={user?.firstName} placeholder='Enter your first name' />
+                        <input className='form__input' type="text" name="firstName" onChange={handleUpdateUserForm} value={updateUser.firstName} placeholder='Enter your first name' />
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="surname">LAST NAME</label>
-                        <input className='form__input' type="text" name="lastName" onChange={handleUpdateUserForm} value={user?.lastName} placeholder='Enter your last name' />
+                        <input className='form__input' type="text" name="lastName" onChange={handleUpdateUserForm} value={updateUser.lastName} placeholder='Enter your last name' />
                     </div>
 
                     <div className='form__wrap'>

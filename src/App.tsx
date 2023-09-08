@@ -1,28 +1,26 @@
+import React, {lazy, useEffect} from "react";
 import { Route, Routes } from "react-router";
-import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getUser } from './components/UserAuth/userAuthOperation/userAuthOperation.ts';
 import { setUser } from "./redux/slices/usersSlice.js";
-
-
-
-import Header from "./components/Header.tsx";
-import Home from "./pages/Home.tsx";
 import './scss/app.scss';
-import React from "react";
-import Footer from "./components/Footer.tsx";
-import TermsAndConditions from "./components/TermsAndConditions.tsx";
-import Logout from "./pages/Logout.tsx";
-import Library from "./pages/Library.tsx";
-import Profile from "./pages/Profile.tsx";
 
-import Filter from "./components/Filter.tsx";
-import Search from "./components/Search.tsx";
+const Header = lazy(() => import("./components/Header.tsx"));
+const Footer = lazy(() => import("./components/Footer.tsx"));
+const Home = lazy(() => import("./pages/Home.tsx"));
+const TermsAndConditions = lazy(() => import("./components/TermsAndConditions.tsx"));
 
-import AddNewBook from "./pages/AddNewBook.tsx";
-import BookInfo from "./pages/BookInfo.tsx";
-import Registration from "./components/UserAuth/Registration.tsx";
-import Login from "./components/UserAuth/Login.tsx";
+const Logout = lazy(() => import( "./pages/Logout.tsx"))
+const Library = lazy(() => import( "./pages/Library.tsx"))
+const Profile = lazy(() => import( "./pages/Profile.tsx"))
+
+const Filter = lazy(() => import( "./components/Filter.tsx"))
+const Search = lazy(() => import( "./components/Search.tsx"))
+
+const AddNewBook = lazy(() => import( "./pages/AddNewBook.tsx"))
+const BookInfo = lazy(() => import( "./pages/BookInfo.tsx"))
+const Registration = lazy(() => import( "./components/UserAuth/Registration.tsx"))
+const Login = lazy(() => import( "./components/UserAuth/Login.tsx"))
 
 
 

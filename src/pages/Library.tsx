@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { navigationStatus, setNavigation } from '../redux/slices/navigationSlice.js'
 
 interface IBooks {
     bookId: number,
@@ -20,15 +21,28 @@ interface IBooksObject {
     cards: IItems,
 }
 
+interface IStatus {
+    [key: string]: string
+}
+
 const Library: React.FC = () => {
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
     
     const items = useSelector((state:IBooksObject) => state.cards.items);
     console.log("items", items);
+    const user = useSelector((state) => state.user.user);
 
-    const user = useSelector((state) => state.user.user)
     const [userBooks, setUserBooks] = useState({});
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const navigate = useNavigate();
+
+
+    const getNavigationStatus: IStatus = useSelector((state) => state.navigation);
+    // console.log("🚀 ~ file: BookInfo.tsx:27 ~ getNavigationStatus:", getNavigationStatus)
+
+
 
     useEffect(() => {
     async function fetchData() {
@@ -43,8 +57,11 @@ const Library: React.FC = () => {
     fetchData();
     }, []);
 
-    const handleClick = (objectKey) => {
+    const handleClick = (objectKey, bla) => {
     setSelectedCategory(objectKey);
+    dispatch(setNavigation(bla));
+    console.log("🚀 ~ file: Library.tsx:63 ~ handleClick ~ navigateStatus:", bla)
+    
     };
 
     const getBookById = (bookId: number) => {
@@ -58,19 +75,19 @@ const Library: React.FC = () => {
                 <div className='library-item library-item-left'>
                     <div className='library-item library-item-left__top'>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksInLibrary')}>My books </button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksInLibrary', navigationStatus.update)}>My books </button>
                             <p>{ userBooks?.booksInLibrary?.count}</p>
                         </div>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine')} >My waiting books</button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine', navigationStatus.delete)} >My waiting books</button>
                             <p>{userBooks?.booksInWaitLine?.count}</p>
                         </div>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksToSend')} >Books To Send</button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksToSend', navigationStatus.send)} >Books To Send</button>
                             <p>{userBooks?.booksToSend?.count}</p>
                         </div>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksInHistory')} >My history</button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksInHistory', navigationStatus.history)} >My history</button>
                             <p>{userBooks?.booksInHistory?.count}</p>
                         </div>
                     </div>

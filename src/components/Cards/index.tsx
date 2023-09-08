@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from "react-redux";
+import { useNavigate} from 'react-router-dom';
+import { useSelector, useDispatch } from "react-redux";
+import { navigationStatus, setNavigation } from '../../redux/slices/navigationSlice.js'
+
 
 interface IBooks {
     bookId: number,
@@ -27,6 +29,9 @@ interface ICardProps {
 
 const Cards: React.FC<ICardProps> = ({ slice }) => {
 
+    const dispatch = useDispatch();
+
+
     const items = useSelector((state: IBooksObject | undefined) => state?.cards?.items || []);
     // console.log("items", items[0].title);
    console.log("items", items && items.length > 0 ? items[0].title : "No items");
@@ -37,9 +42,12 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
     const displayedItems = slice ? items.slice(0, slice) : items;
     console.log(displayedItems)
     
-    const getBookById = (bookId: number) => {
+    const getBookById = (bookId: number, bla) => {
         navigate(`/bookInfo/${bookId}`)
-        console.log(bookId)
+        console.log(bookId);
+        dispatch(setNavigation(bla));
+
+        
     }
 
     useEffect(() => {console.log("Cards")})
@@ -57,7 +65,7 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
                     <p className="card-block-desc__top">{author}</p>
                     <p className="card-block-desc__bottom">{category}</p>
                     <p className="card-block-desc__bottom">{language}</p>
-                    <button className="button button-card" onClick={() => getBookById(bookId)}> More info </button>
+                    <button className="button button-card" onClick={() => getBookById(bookId, navigationStatus.get)}> More info </button>
                 </div>
             </div>
         </div>
