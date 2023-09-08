@@ -47,7 +47,7 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
 
     return (
         <>
-            {displayedItems.map(({ bookId, title, author, category, language, cover }) => (
+        {displayedItems.map(({ bookId, title, author, category, language, cover }) => (
                 
         <div key={bookId} className="card-block-wrapper">
             <div className="card-block">

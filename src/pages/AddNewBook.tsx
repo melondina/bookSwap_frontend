@@ -82,10 +82,7 @@ const AddNewBook: React.FC = () => {
             <h2 className="content__title">
                 Add New Book
             </h2>
-            <div className="addNewBook__items content__items">
-                <div>
-                <MyLibraryBox />
-                </div>
+            <div className="addNewBook__items">
             <form onSubmit={handleAddNewBookSubmit} className='form addNewBook-wrap'>
                 <div className='form__wrap addNewBook-wrap__top'>
                     <label  className='form__label' htmlFor="image">UPLOAD A BOOK COVER</label>
