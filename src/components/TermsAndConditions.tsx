@@ -10,6 +10,10 @@ const TermsAndConditions: React.FC = () => {
             <h2 className='h'>
                 Terms and Conditions
             </h2>
+            <div className='content1'>
+            <h6 className='h6'>
+                Agreement to our legal terms
+            </h6>
             <p className='text'>
             
 Last updated: 07.09.2023.
@@ -41,10 +45,12 @@ Contact Us
 If you have any questions about these Terms, please contact us.
             </p>
             <button className='agree' >
+
                 <Link to="/"> 
-                    I agree 
+                    <span> I agree </span>
                 </Link>
             </button>
+            </div>   
         </div>
     )
     
