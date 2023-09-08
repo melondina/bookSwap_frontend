@@ -39,6 +39,10 @@ const AddNewBook: React.FC = () => {
     const navigate = useNavigate();
     // console.log(userId)
 
+    const getLibrary =() =>{
+        navigate(`/library`);
+    }
+
     const bookCreating = async (createNewBook: ICreateNewBook) => {
         try {
             const newBookData = {
@@ -154,7 +158,7 @@ const AddNewBook: React.FC = () => {
                 </div>
                 <div >
                     <button type='submit' className='button button-profile'>Add</button>
-                    <button type='reset' className='button button-profile button-profile__right'>Cancel</button>
+                    <button type='reset' className='button button-profile button-profile__right' onClick={()=>getLibrary()}>Cancel</button>
                 </div>
                 </div>
             </form>

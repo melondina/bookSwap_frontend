@@ -28,14 +28,14 @@ const Profile: React.FC = () => {
     }
 
     const handleUpdateUserForm = (event: ChangeEvent<HTMLInputElement>) => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
         setUpdateUser((prev) => ({
-            ...prev, [name]:value
+            ...prev, [name]: value
         }))
     }
 
     const handlePostCode = (event: ChangeEvent<HTMLInputElement>) => {
-        const {value} = event.target;
+        const { value } = event.target;
         setPostCode(value)
 
     }
@@ -43,12 +43,16 @@ const Profile: React.FC = () => {
     const navigate = useNavigate();
     const user = useUserSelector();
 
+    const getHome = () => {
+        navigate(`/`);
+    }
+
     const userProfileCreating = async (updateUser: IUserProfile) => {
         try {
-            const data = await axios.put(`/api/users/${user.id}`, updateUser, { withCredentials: true});
+            const data = await axios.put(`/api/users/${user.id}`, updateUser, { withCredentials: true });
             console.log("userProfileCreating", data)
             return data;
-            
+
         } catch (error) {
             console.log("userProfileCreating", error)
         }
@@ -58,12 +62,12 @@ const Profile: React.FC = () => {
         event.preventDefault();
         try {
 
-            setUpdateUser ((prev) => ({
+            setUpdateUser((prev) => ({
                 ...prev, postalCode: postCode
             }))
 
             const userUpdateData = await userProfileCreating(updateUser);
-            if(userUpdateData?.status===200) {
+            if (userUpdateData?.status === 200) {
                 console.log("userUpdateData", userUpdateData)
                 navigate("/library")
             }
@@ -77,15 +81,15 @@ const Profile: React.FC = () => {
 
 
     useEffect(() => {
-        if(postCode.length === 5) {
+        if (postCode.length === 5) {
             try {
                 const getCity = async () => {
-                    const {data} = await axios.get(`/api/location/${postCode}`);
-                    
+                    const { data } = await axios.get(`/api/location/${postCode}`);
+
                     setCity(data.city);
                 }
                 getCity();
-                
+
             } catch (error) {
             }
         }
@@ -100,18 +104,18 @@ const Profile: React.FC = () => {
 
             <div className='form-container'>
                 <form onSubmit={handleUpdateUserSubmit} className='form'>
-                <div className='form__wrap'>
-                        <label  className='form__label' htmlFor="name">FIRST NAME</label>
-                        <input className='form__input' type="text" name="firstName" onChange={handleUpdateUserForm} value={updateUser.firstName} placeholder='Enter your first name' />
+                    <div className='form__wrap'>
+                        <label className='form__label' htmlFor="name">FIRST NAME</label>
+                        <input className='form__input' type="text" name="firstName" onChange={handleUpdateUserForm} value={user?.firstName} placeholder='Enter your first name' />
                     </div>
                     <div className='form__wrap'>
-                        <label  className='form__label' htmlFor="surname">LAST NAME</label>
-                        <input className='form__input' type="text" name="lastName" onChange={handleUpdateUserForm} value={updateUser.lastName} placeholder='Enter your last name' />
+                        <label className='form__label' htmlFor="surname">LAST NAME</label>
+                        <input className='form__input' type="text" name="lastName" onChange={handleUpdateUserForm} value={user?.lastName} placeholder='Enter your last name' />
                     </div>
 
                     <div className='form__wrap'>
-                        <label  className='form__label' htmlFor="email">EMAIL</label>
-                        <input className='form__input input__disabled' type="email" name="email" value={user?.email} disabled/>
+                        <label className='form__label' htmlFor="email">EMAIL</label>
+                        <input className='form__input input__disabled' type="email" name="email" value={user?.email} disabled />
                     </div>
                     <div className='form__wrap'>
                         <label className='form__label' htmlFor="postcode">POSTCODE</label>
@@ -127,12 +131,13 @@ const Profile: React.FC = () => {
                     </div>
                     <div >
                         <button type='submit' className='button button-profile'>Save</button>
-                        <button type='reset' className='button button-profile button-profile__right'>Cancel</button>
+                        <button type='reset' className='button button-profile button-profile__right' onClick={() => getHome()}>Cancel</button>
                     </div>
                 </form>
             </div>
         </div>
 
-    )}
+    )
+}
 
-    export default Profile;
+export default Profile;
