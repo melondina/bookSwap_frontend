@@ -23,10 +23,10 @@ interface IBooks {
 
 const BookInfo: React.FC<IBooks> = () => {
 
-    const navigate= useNavigate();
+    const navigate = useNavigate();
     const user = useSelector((state) => state.user.user);
 
-    const {id} = useParams();
+    const { id } = useParams();
     console.log("bookId", id);
 
     // console.log("userId", user.id)
@@ -44,7 +44,7 @@ const BookInfo: React.FC<IBooks> = () => {
         userId: string
     }
 
-    
+
     const getBookCreating = async (getBook: IGetBook) => {
         try {
             const newGetBook = {
@@ -57,14 +57,14 @@ const BookInfo: React.FC<IBooks> = () => {
             console.log("getBookCreating", data)
             return data;
         } catch (error) {
-            console.log("getBookCreating",error)
+            console.log("getBookCreating", error)
         }
     }
 
     const handleGetBook = async () => {
         try {
             const getBookData = await getBookCreating(getBook);
-            if(getBookData?.status===200) {
+            if (getBookData?.status === 200) {
                 navigate("/library");
             } else (navigate("/"))
             console.log("getBookData", getBookData)
@@ -76,45 +76,56 @@ const BookInfo: React.FC<IBooks> = () => {
     useEffect(() => {
 
         const fetchBook = async () => {
-          try {
-            const response = await axios.get(`/api/books/${id}/detail`);
-            if(response?.status === 200) {
-                setBook(response.data);
+            try {
+                const response = await axios.get(`/api/books/${id}/detail`);
+                if (response?.status === 200) {
+                    setBook(response.data);
+                }
+                // console.log("dataBook", response.data.title);
+            } catch (error) {
+                console.error('Ошибка при запросе к серверу:', error);
             }
-            // console.log("dataBook", response.data.title);
-          } catch (error) {
-            console.error('Ошибка при запросе к серверу:', error);
-          }
         };
-    
+
         fetchBook();
-      }, [id]);
+    }, [id]);
 
 
     return (
         <div className='book'>
-            <div className='book__conteiner'>
-                <div className='book__cover'>
+            <div className='book__container'>
+                <div>
                     <img className='book__img' src={book?.cover} alt="Book" />
                 </div>
-                <div className='book__info'>
+                <div>
                     <p className='book__title'>{book?.title}</p>
-                    <p className='book__line__1'>{book?.author}</p>
-                    <p className='book__line'>Genre: {book?.category}</p>
-                    <p className='book__line'>Language: {book?.language}</p>
-                    <p className='book__line__1'>Number of pages: {book?.pages}</p>
-                    <p className='book__line'>Year of publication: {book?.publisherDate}</p>
-                    <p>Description:</p>
-                    <p className='book__line'> {book?.description}</p>
-                    <p className='book__line'>Wait line: {book?.queueSize}</p>
-                    <p className='book__line'>Current location: {book?.location}</p>
-                    <button className='button book__button' onClick={() => 
-                    {user===null ? navigate("/login") : handleGetBook()} }>Get book</button>
-
+                    <p className='book__title'>{book?.author}</p>
+                    <p className='book__genre'>{book?.category}</p>
+                    <p className='book__genre'>{book?.language}</p>
+                    <p className='book__textbold__1'>Description:</p>
+                    <p className='book__line'>{book?.description}</p>
+                    <div className='book__column'>
+                        <div><p className='book__textbold__1'>Number of pages:</p></div>
+                        <div><p className='book__textbold__1'>{book?.pages}</p></div>
+                    </div>
+                    <div className='book__column'>
+                        <div><p className='book__textbold'>Year of publication:</p></div>
+                        <div><p className='book__textbold'>{book?.publisherDate}</p></div>
+                    </div>
+                    <div className='book__column'>
+                        <div><p className='book__textbold'>Wait line:</p></div>
+                        <div><p className='book__textbold'>{book?.queueSize}</p></div>
+                    </div>
+                    <p className='book__textbold__1'>Current Location:</p>
+                    <p className='book__textbold'>{book?.location}</p>
+                    <div className='book__button'>
+                        <button className='button' onClick={() => { user === null ? navigate("/login") : handleGetBook() }}>Get book</button>
+                    </div>
                 </div>
             </div>
         </div>
 
-    )}
+    )
+}
 
-    export default BookInfo;
+export default BookInfo;
