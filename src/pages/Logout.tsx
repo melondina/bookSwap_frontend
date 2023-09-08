@@ -23,7 +23,7 @@ const Logout: React.FC = () => {
           <h2 className="content__title"> Are you sure you want to logout?</h2> 
             <div>
                 <button type='button' onClick={handleLogout} className='button button__yesno'>Yes</button>
-                <Link to="/" className='button button__yesno'>No</Link></div>
+                <Link to="/" className='button button__yesno no'>No</Link></div>
         </div>
     )
 }
