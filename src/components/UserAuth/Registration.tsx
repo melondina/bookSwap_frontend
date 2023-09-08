@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { initUserAuth } from './initUser.ts';
 import { userRegistr } from './userAuthOperation/userAuthOperation.ts';
+import eye from '../../assets/img/visibility_off.svg';
+
 
 // const BASEURL = "http://localhost:8080"
 
@@ -49,36 +51,38 @@ const Registration: React.FC = () => {
                     <label className='form__label' htmlFor="email">Email</label>
                     <input autoComplete='on' className='form__input' type="email" name="email" onChange={handleRegistrationForm} value={createNewUser.email} placeholder='Enter your email' />
                 </div>
-                <div className='form__wrap'>
+                <div className='form__wrap form__wrap__eye'>
                     <label className='form__label' htmlFor="password">Password</label>
                     <input autoComplete='on' className='form__input' type={show ? "text" : "password"} name="password" onChange={handleRegistrationForm} value={createNewUser.password} placeholder='Enter password' />
                     <span>Must be 8 characters at least</span>
+                    <button className="button__eye" type="button" onClick={() => setShow((prev) => !prev)}><img width="24px"  src={eye} alt="eye" /></button>
+
                 </div>
-                <div className='form__wrap'>
+                <div className='form__wrap form__wrap__eye'>
                     <label className='form__label' htmlFor="password">Repeat password</label>
-                    <input className='form__input' type="password" placeholder='Repeat password' />
+                    <input className='form__input' type={show?"text":"password"} placeholder='Repeat password' />
+                    <button className="button__eye" type="button" onClick={() => setShow((prev) => !prev)}>git </button>
                 </div>
                 <div className='form__wrap'>
-    <input
-        className='form__checkbox'
-        type="checkbox"
-        name="acceptTerms"
-        id="checkbox-id"
-        checked={acceptTerms}
-        onChange={handleCheckboxChange}
-    />
-    <label htmlFor="checkbox-id">  
-        By creating an account means you agree to the
-        <Link className='form__links' to="/termsAndConditions"> Terms and Conditions</Link>
-    </label>
-</div>
+                <input
+                    className='form__checkbox'
+                    type="checkbox"
+                    name="acceptTerms"
+                    id="checkbox-id"
+                    checked={acceptTerms}
+                    onChange={handleCheckboxChange}
+                />
+                <label htmlFor="checkbox-id">  
+                    By creating an account means you agree to the
+                    <Link className='form__links' to="/termsAndConditions"> Terms and Conditions</Link>
+                </label>
+            </div>
                 <button type="submit" className='button'>Sign Up</button>
                 <p className='form__bottom'>
                     Already have an account?
                     <Link className='form__links' to="/login"> Login</Link>
                 </p>
             </form>
-            <button type="button" onClick={() => setShow((prev) => !prev)}>Show</button>
         </div>
     )
 }
