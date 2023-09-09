@@ -79,7 +79,7 @@ const Library: React.FC = () => {
                             <p>{ userBooks?.booksInLibrary?.count}</p>
                         </div>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine', navigationStatus.delete)} >My waiting books</button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine', navigationStatus.delete)} >Want to read</button>
                             <p>{userBooks?.booksInWaitLine?.count}</p>
                         </div>
                         <div className='library-item__link'>

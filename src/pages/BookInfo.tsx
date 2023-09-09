@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -109,6 +109,42 @@ const BookInfo: React.FC<IBooks> = () => {
         }
     }
 
+    const deleteBookCreating = async (getBook: IGetBook) => {
+        try {
+            const newDeleteBook = {
+                ...getBook,
+                userId: user.id,
+                bookId: id
+            };
+            console.log("newDeleteBook", newDeleteBook)
+            // const data = await axios.delete(`/api/books/remove`, newDeleteBook);
+
+            const response: AxiosResponse<{  }> = await axios.delete(`/api/books/remove`, {
+                data: newDeleteBook,
+            });
+
+            console.log("deleteBookCreating", response)
+            return response.data;
+        } catch (error) {
+            console.log("deleteBookCreating", error)
+        }
+    }
+
+    const handleDeleteBook = async () => {
+        try {
+            const deleteBookData = await deleteBookCreating(getBook);
+            if (deleteBookData?.status === 200) {
+                navigate("/library");
+            } else (navigate("/library"))
+            console.log("deleteBookData", deleteBookData)
+        } catch (error) {
+            console.log(error)
+        }
+ 
+    }
+
+
+
 
     useEffect(() => {
 
@@ -160,7 +196,7 @@ const BookInfo: React.FC<IBooks> = () => {
                         {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate("/addBook")} >Update Book</button> : null}
                         {getNavigationStatus === navigationStatus.send ?<button className='button' onClick={handleSendBook}>Send Book</button> : null}
                         {getNavigationStatus === navigationStatus.history ? <button className='button' >Leave a comment</button> : null}
-
+                        {getNavigationStatus === navigationStatus.delete ? <button className='button' onClick={handleDeleteBook} >Delete</button> : null}
                     </div>
                 </div>
             </div>
