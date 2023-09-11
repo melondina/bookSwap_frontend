@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
 import Search from '../components/Search.tsx';
 import Cards from '../components/Cards/index.tsx';
+import { selectLanguageId, resetLanguage } from '../redux/slices/languageFilterSlice.js';
+import { selectCategoryId, resetCategory } from '../redux/slices/categoryFilterSlice.js';
+import { selectLocation, resetLocation } from '../redux/slices/locationFilterSlice.js';
 
 
 const Home: React.FC = () => {
     const dispatch = useDispatch();
-
+   
     const [isLoading, setIsLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
     const skeletons = [...new Array(5)].map((_, index) => <Skeleton key={index} />);
+
+    const languageId = useSelector(selectLanguageId);
+    const categoryId = useSelector(selectCategoryId);
+    const location = useSelector(selectLocation);
 
     useEffect(() => {
         const fetchCards = async () => {
             setIsLoading(true);
 
             try {
+                const locationParam = location === null ? '' : location;
+
                 await fetch(
-                    `/api/books/`
+                    `/api/books/?categoryId=${categoryId || ''}
+                    &languageId=${languageId || ''}
+                    &location=${locationParam}
+                    `
                 )
                     .then((res) => {
                         return res.json();
@@ -39,7 +50,9 @@ const Home: React.FC = () => {
             window.scrollTo(0, 0);
         }
         fetchCards();
-    }, [dispatch]);
+
+        
+    }, [dispatch, languageId, categoryId, location]);
 
     return (
         <div>
@@ -55,22 +68,20 @@ const Home: React.FC = () => {
                 <Search />
                 <h2 className="content__title">Available now</h2>
                 <div className="content__items">
-                    {isLoading 
-                    ? skeletons
-                    : showAll
-                    ? <Cards />
-                    : <Cards/>}
+                    {isLoading
+                        ? skeletons
+                        : showAll
+                            ? <Cards />
+                            : <Cards />}
                 </div>
             </div>
             {!showAll && (
                 <button className="button content__button" onClick={() => setShowAll(true)}>
                     See all
                 </button>
-                )}
-            </div>
+            )}
+        </div>
     )
 }
 
 export default Home;
-
-
