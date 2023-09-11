@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-export const navigationStatus = { get: "get", update: "update", send: "send", history: "history", delete: "delete" };
+export const navigationStatus = { get: "get", update: "update", send: "send", history: "history", delete: "delete", add: "add" };
 
 const initialState =  navigationStatus.get;
 
