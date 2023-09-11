@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
 import Search from '../components/Search.tsx';

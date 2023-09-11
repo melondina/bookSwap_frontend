@@ -3,13 +3,21 @@ import { setLanguage, resetLanguage } from '../redux/slices/languageFilterSlice'
 import { setLocation, resetLocation } from '../redux/slices/locationFilterSlice';
 import { setCategory, resetCategory } from '../redux/slices/categoryFilterSlice';
 import axios from 'axios';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { selectLanguageId } from '../redux/slices/languageFilterSlice';
-import { selectCategoryId } from '../redux/slices/categoryFilterSlice';
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
+
+  const resetFilters= () => {
+    dispatch(resetLanguage());
+    dispatch(resetLocation());
+    dispatch(resetCategory());
+  };
+
+  useEffect(() => {
+    resetFilters();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -51,11 +59,6 @@ const Filter: React.FC = () => {
     window.location.reload();
   };
 
-  const resetFilters= () => {
-    dispatch(resetLanguage());
-    dispatch(resetLocation());
-    dispatch(resetCategory());
-  };
 
   useEffect(() => {
     fetchData();
