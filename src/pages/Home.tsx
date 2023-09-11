@@ -13,8 +13,8 @@ import { selectLocation } from '../redux/slices/locationFilterSlice.js';
 const Home: React.FC = () => {
     const dispatch = useDispatch();
 
-    console.log(useSelector(selectLanguageId));
-    console.log(useSelector(selectCategoryId));
+    // console.log(useSelector(selectLanguageId));
+    // console.log(useSelector(selectCategoryId));
     console.log(useSelector(selectLocation));
 
     const [isLoading, setIsLoading] = useState(true);
@@ -22,13 +22,22 @@ const Home: React.FC = () => {
 
     const skeletons = [...new Array(5)].map((_, index) => <Skeleton key={index} />);
 
+    const languageId = useSelector(selectLanguageId);
+    const categoryId = useSelector(selectCategoryId);
+    const location = useSelector(selectLocation);
+
     useEffect(() => {
         const fetchCards = async () => {
             setIsLoading(true);
 
             try {
+                const locationParam = location === null ? '' : location;
+
                 await fetch(
-                    `/api/books/`
+                    `/api/books/?categoryId=${categoryId || ''}
+                    &languageId=${languageId || ''}
+                    &location=${locationParam}
+                    `
                 )
                     .then((res) => {
                         return res.json();
