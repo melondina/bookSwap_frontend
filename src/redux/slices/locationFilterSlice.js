@@ -1,6 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const initialState = { };
+const initialState = { 
+  location: undefined,
+};
 
 const locationSlice = createSlice({
     name: 'location',
@@ -12,6 +14,8 @@ const locationSlice = createSlice({
       resetLocation: () => [],
     },
   });
+
+  export const selectLocation = (state) => state.location;
   
   export const { setLocation, resetLocation } = locationSlice.actions;
   export default locationSlice.reducer;

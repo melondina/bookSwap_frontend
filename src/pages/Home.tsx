@@ -5,10 +5,17 @@ import Skeleton from "../components/Cards/Skeleton.tsx";
 import { setItems } from '../redux/slices/cardsSlice.js';
 import Search from '../components/Search.tsx';
 import Cards from '../components/Cards/index.tsx';
+import { selectLanguageId } from '../redux/slices/languageFilterSlice.js';
+import { selectCategoryId } from '../redux/slices/categoryFilterSlice.js';
+import { selectLocation } from '../redux/slices/locationFilterSlice.js';
 
 
 const Home: React.FC = () => {
     const dispatch = useDispatch();
+
+    console.log(useSelector(selectLanguageId));
+    console.log(useSelector(selectCategoryId));
+    console.log(useSelector(selectLocation));
 
     const [isLoading, setIsLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);

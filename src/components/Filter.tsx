@@ -3,8 +3,10 @@ import { setLanguage, resetLanguage } from '../redux/slices/languageFilterSlice'
 import { setLocation, resetLocation } from '../redux/slices/locationFilterSlice';
 import { setCategory, resetCategory } from '../redux/slices/categoryFilterSlice';
 import axios from 'axios';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { selectLanguageId } from '../redux/slices/languageFilterSlice';
+import { selectCategoryId } from '../redux/slices/categoryFilterSlice';
 
 const Filter: React.FC = () => {
   const dispatch = useDispatch();
@@ -13,19 +15,23 @@ const Filter: React.FC = () => {
     try {
       const response = await axios.get('/api/books/filter');
       setData(response.data);
-      console.log(data);
     } catch (error) {
       console.error('Bad request:', error);
     }
   };
 
   const [data, setData] = useState<any>({
-    language: [],
+    language: [
+      {languageId:1, title:"1"}
+    ],
     location: [],
-    category: [],
+    category: [
+      {categoryId:1, title:"1"}
+    ],
   });
 
-  const handleLanguageChange = (language: string) => {
+  const handleLanguageChange = (language: {languageId: number,
+    title:string}) => {
     dispatch(setLanguage(language));
   };
 
@@ -33,7 +39,8 @@ const Filter: React.FC = () => {
     dispatch(setLocation(location));
   }; 
 
-  const handleCategoryChange = (category: string) => {
+  const handleCategoryChange = (category: {categoryId: number,
+    title:string}) => {
     dispatch(setCategory(category));
   }
 
@@ -59,15 +66,15 @@ const Filter: React.FC = () => {
       <div>
         <h2>Language</h2>
         <ul>
-          {data.language.map((language: string) => (
-            <li key={language}>
+          {data.language.map((language: any) => (
+            <li key={language.languageId}>
               <label>
                 <input type="radio"
                   name="language"
-                  value={language}
+                  value={language.title}
                   onChange={() => handleLanguageChange(language)}
                 />
-                {language}
+                {language.title}, {language.languageId}
               </label>
             </li>
           ))}
@@ -93,15 +100,15 @@ const Filter: React.FC = () => {
       <div>
         <h2>Category</h2>
         <ul>
-          {data.category.map((category: string) => (
-            <li key={category}>
+          {data.category.map((category: any) => (
+            <li key={category.categoryId}>
               <label>
                 <input type="radio" 
                 name="category"
-                value={category}
+                value={category.title}
                 onChange={() => handleCategoryChange(category)} 
                 />
-                {category}
+                {category.title}, {category.categoryId}
               </label>
             </li>
           ))}
