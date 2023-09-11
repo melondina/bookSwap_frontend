@@ -1,19 +1,28 @@
 import { Link } from 'react-router-dom';
+import './modal.css'; 
 import React, { useState, useEffect } from 'react';
-import { setLanguage, resetLanguage } from '../../redux/slices/languageFilterSlice';
-import { setLocation, resetLocation } from '../../redux/slices/locationFilterSlice';
-import { setCategory, resetCategory } from '../../redux/slices/categoryFilterSlice';
+import { setLanguage, resetLanguage } from '../redux/slices/languageFilterSlice';
+import { setLocation, resetLocation } from '../redux/slices/locationFilterSlice';
+import { setCategory, resetCategory } from '../redux/slices/categoryFilterSlice';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import './modal.css';
-
 
 interface FilterModalProps {
   closeModal: () => void;
 }
 
 const FilterModal: React.FC<FilterModalProps> = ({ closeModal }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
+  const resetFilters= () => {
+    dispatch(resetLanguage());
+    dispatch(resetLocation());
+    dispatch(resetCategory());
+  };
+
+  useEffect(() => {
+    resetFilters();
+  }, []);
 
   const fetchData = async () => {
     try {
@@ -55,22 +64,18 @@ const FilterModal: React.FC<FilterModalProps> = ({ closeModal }) => {
     window.location.reload();
   };
 
-  const resetFilters= () => {
-    dispatch(resetLanguage());
-    dispatch(resetLocation());
-    dispatch(resetCategory());
-  };
-
   useEffect(() => {
     fetchData();
   }, []);
 
   return (
     <div className="modal">
-      <div className="modal-content">
+      {/* <div className="modal-content">
         <Link to="/Filter" className="modal-close-button">
           Close
-        </Link>
+        </Link> */}
+{/* 
+
         <div className="columns-3">
       <div>
         <h2>Language</h2>
@@ -127,7 +132,8 @@ const FilterModal: React.FC<FilterModalProps> = ({ closeModal }) => {
       <Link to="/" onClick={resetFilters}> Back to HomePage </Link>
       <Link to="/" > Use filters </Link>
     </div>
-      </div>
+
+      </div> */}
     </div>
   );
 };

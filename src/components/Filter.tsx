@@ -77,7 +77,7 @@ const Filter: React.FC = () => {
                   value={language.title}
                   onChange={() => handleLanguageChange(language)}
                 />
-                {language.title}, {language.languageId}
+                {language.title}
               </label>
             </li>
           ))}
@@ -111,7 +111,7 @@ const Filter: React.FC = () => {
                 value={category.title}
                 onChange={() => handleCategoryChange(category)} 
                 />
-                {category.title}, {category.categoryId}
+                {category.title}
               </label>
             </li>
           ))}

@@ -12,10 +12,6 @@ import { selectLocation } from '../redux/slices/locationFilterSlice.js';
 const Home: React.FC = () => {
     const dispatch = useDispatch();
 
-    // console.log(useSelector(selectLanguageId));
-    // console.log(useSelector(selectCategoryId));
-    console.log(useSelector(selectLocation));
-
     const [isLoading, setIsLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
