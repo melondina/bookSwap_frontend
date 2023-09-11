@@ -1,7 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { navigationStatus } from '../redux/slices/navigationSlice.js'
 
 
@@ -23,7 +23,19 @@ interface IBooks {
 
 
 
-const BookInfo: React.FC<IBooks> = () => {
+const BookInfo: React.FC<IBooks> = ({
+    bookId,
+    title,
+    author,
+    description,
+    category,
+    language,
+    pages,
+    publisherDate,
+    cover,
+    location,
+    queueSize,
+}) => {
 
     const getNavigationStatus = useSelector((state) => state.navigation);
     // console.log("🚀 ~ file: BookInfo.tsx:27 ~ getNavigationStatus:", getNavigationStatus)
@@ -45,7 +57,9 @@ const BookInfo: React.FC<IBooks> = () => {
     const [getBook, setGetBook] = useState({
         bookId: '',
         userId: ''
-    })
+    });
+
+    console.log("getBook.bookId", getBook.bookId);
 
     interface IGetBook {
         bookId: string,
@@ -193,10 +207,36 @@ const BookInfo: React.FC<IBooks> = () => {
                     <p className='book__textbold'>{book?.location}</p>
                     <div className='book__button'>
                         {getNavigationStatus === navigationStatus.get ?<button className='button' onClick={() => { user === null ? navigate("/login") : handleGetBook() }}>Get book</button> : null}
-                        {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate("/addBook")} >Update Book</button> : null}
+                        {/* {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate(`/updateBook/${id}`)} >Update Book</button> : null} */}
                         {getNavigationStatus === navigationStatus.send ?<button className='button' onClick={handleSendBook}>Send Book</button> : null}
                         {getNavigationStatus === navigationStatus.history ? <button className='button' >Leave a comment</button> : null}
                         {getNavigationStatus === navigationStatus.delete ? <button className='button' onClick={handleDeleteBook} >Delete</button> : null}
+                        {getNavigationStatus === navigationStatus.update ? (
+              <button className='button'>
+                {/* Используем Link для передачи книги через пропсы */}
+                <Link 
+                  to={`/updateBook/${id}`}
+                  // Передаем книгу через пропс
+                  state={{
+                    book: {
+                      bookId,
+                      title,
+                      author,
+                      description,
+                      category,
+                      language,
+                      pages,
+                      publisherDate,
+                      cover,
+                      location,
+                      queueSize,
+                    },
+                  }}
+                >
+                  Update Book
+                </Link>
+              </button>
+            ) : null}
                     </div>
                 </div>
             </div>

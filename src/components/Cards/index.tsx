@@ -46,8 +46,6 @@ const Cards: React.FC<ICardProps> = ({ slice }) => {
         navigate(`/bookInfo/${bookId}`)
         console.log(bookId);
         dispatch(setNavigation(bla));
-
-        
     }
 
     useEffect(() => {console.log("Cards")})
