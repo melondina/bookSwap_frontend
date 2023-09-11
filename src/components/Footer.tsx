@@ -5,7 +5,7 @@ const Footer: React.FC = () => {
     
 
     return (
-        <div className="footer container">
+        <div className="footer">
             <div className="footer-left">
             <h4>
                 Contact us

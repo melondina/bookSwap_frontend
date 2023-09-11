@@ -19,7 +19,7 @@ const Logout: React.FC = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='container container__logout'>
           <h2 className="content__title"> Are you sure you want to logout?</h2> 
             <div>
                 <button type='button' onClick={handleLogout} className='button button__yesno'>Yes</button>

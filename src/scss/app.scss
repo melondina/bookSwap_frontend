@@ -6,6 +6,10 @@
 .container {
   width: $container-width;
   margin: 0 auto;
+
+  &__logout {
+    min-height: 430px; 
+   }
 }
 
 body {

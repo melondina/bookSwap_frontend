@@ -3,19 +3,23 @@
     justify-content: space-between;
     background-color: #F4F5F6;
     width: 100%;
-    padding: 50px;
-    margin: auto;
+    padding: 20px 50px 10px;
+    margin-top: 50px; 
     
     &-left {
         display: flex;
         flex-direction: column;
+    }
+
+    &-right {
+        margin-bottom: 0;
     }
 }
 
 .copyright {
     display: flex;
     flex-direction: column;
-    margin: 2px;
+    margin: 0px;
 }
 
 .insta {
@@ -30,12 +34,9 @@
     margin-left: 10px;
 }
 .terms {
-        font-family: Rubik;        
-        font-size: 20px;
-        font-weight: 700;
-        line-height: 22px;
-        text-align: right;
-
-}
-
-
+    font-family: Rubik;        
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 22px;
+    text-align: right;
+ }
