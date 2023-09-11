@@ -207,36 +207,10 @@ const BookInfo: React.FC<IBooks> = ({
                     <p className='book__textbold'>{book?.location}</p>
                     <div className='book__button'>
                         {getNavigationStatus === navigationStatus.get ?<button className='button' onClick={() => { user === null ? navigate("/login") : handleGetBook() }}>Get book</button> : null}
-                        {/* {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate(`/updateBook/${id}`)} >Update Book</button> : null} */}
+                        {getNavigationStatus === navigationStatus.update ?<button className='button' onClick={() => navigate(`/updateBook/${id}`, { state: {book}})} >Update Book</button> : null}
                         {getNavigationStatus === navigationStatus.send ?<button className='button' onClick={handleSendBook}>Send Book</button> : null}
                         {getNavigationStatus === navigationStatus.history ? <button className='button' >Leave a comment</button> : null}
                         {getNavigationStatus === navigationStatus.delete ? <button className='button' onClick={handleDeleteBook} >Delete</button> : null}
-                        {getNavigationStatus === navigationStatus.update ? (
-              <button className='button'>
-                {/* Используем Link для передачи книги через пропсы */}
-                <Link 
-                  to={`/updateBook/${id}`}
-                  // Передаем книгу через пропс
-                  state={{
-                    book: {
-                      bookId,
-                      title,
-                      author,
-                      description,
-                      category,
-                      language,
-                      pages,
-                      publisherDate,
-                      cover,
-                      location,
-                      queueSize,
-                    },
-                  }}
-                >
-                  Update Book
-                </Link>
-              </button>
-            ) : null}
                     </div>
                 </div>
             </div>

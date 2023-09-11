@@ -1,25 +1,28 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { useSelector } from 'react-redux';
 
 
 
 
-const AddNewBook: React.FC = () => {
+const UpdateBook: React.FC = () => {
+
+    const location = useLocation();
+    const bookFromProps = location.state?.book || {};
 
     const user = useSelector((state) => state.user.user);
     
     const [updateBook, setUpdateBook] = useState({
-        title: '',
-        author: '',
-        description: '',
+        title: bookFromProps.title || '',
+        author: bookFromProps.author || '',
+        description: bookFromProps.description || '',
         categoryId: '',
         languageId: '',
-        pages: '',
-        publisherDate: '',
-        cover: '',
-        owner: ''
+        pages: bookFromProps.pages || '',
+        publisherDate: bookFromProps.publisherDate || '',
+        cover: bookFromProps.cover || '',
+        owner: '',
     });
     // console.log("AddNewBook")
 
@@ -58,7 +61,7 @@ const AddNewBook: React.FC = () => {
     }
     
 
-    const handleAddBookForm = (event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement>) => {
+    const handleUpdateBookForm = (event: ChangeEvent<HTMLTextAreaElement | HTMLSelectElement | HTMLInputElement>) => {
         const {name, value} = event.target;
         setUpdateBook((prev) => ({
             ...prev, [name]:value
@@ -66,11 +69,11 @@ const AddNewBook: React.FC = () => {
     }
 
 
-    const handleAddNewBookSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    const handleUpdateBookSubmit = async (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
             const bookData = await bookUpdating(updateBook);
-            if(bookData?.status===201) {
+            if(bookData?.status===200) {
                 navigate("/library");
             }
             console.log(bookData)
@@ -81,29 +84,36 @@ const AddNewBook: React.FC = () => {
 
     const { id } = useParams();
     console.log("title", id);
+
+    useEffect(() => {
+        const bookFromProps = location.state?.book;
+        if (bookFromProps) {
+          setUpdateBook(bookFromProps);
+        }
+      }, [location.state]);
        
 
     return (
         <div className='container'>
             <h2 className="content__title">Update Book</h2> 
             <div className="addNewBook__items">
-            <form onSubmit={handleAddNewBookSubmit} className='form addNewBook-wrap'>
+            <form onSubmit={handleUpdateBookSubmit} className='form addNewBook-wrap'>
                 <div className='form__wrap addNewBook-wrap__top'>
                     <label  className='form__label' htmlFor="image">UPLOAD A BOOK COVER</label>
-                    <input className='form__input' type="url" name="cover" onChange={handleAddBookForm} value={updateBook.cover} />
+                    <input className='form__input' type="url" name="cover" onChange={handleUpdateBookForm} value={updateBook.cover} />
                 </div>
                 <div className="addNewBook-wrap__center-left">
                 <div className='form__wrap'>
                         <label  className='form__label' htmlFor="bookName">BOOK NAME</label>
-                        <input className='form__input' type="text" name="title" onChange={handleAddBookForm} value={updateBook.title}placeholder='Enter a book name' />
+                        <input className='form__input' type="text" name="title" onChange={handleUpdateBookForm} value={updateBook.title}placeholder='Enter a book name' />
                 </div>
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="author">AUTHOR</label>
-                    <input className='form__input' type="text" name="author" onChange={handleAddBookForm} value={updateBook.author} placeholder='Enter a book author' />
+                    <input className='form__input' type="text" name="author" onChange={handleUpdateBookForm} value={updateBook.author} placeholder='Enter a book author' />
                 </div>
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="genre">GENRE</label>
-                    <select className='form__input' name="categoryId" onChange={handleAddBookForm} value={updateBook.categoryId} >
+                    <select className='form__input' name="categoryId" onChange={handleUpdateBookForm} value={updateBook.categoryId} >
                         <option value="" disabled>Choose genre</option>
                         <option value="1">Esse</option>
                         <option value="2">Detective</option>
@@ -128,15 +138,15 @@ const AddNewBook: React.FC = () => {
                 <div className="addNewBook-wrap__center-right">
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="pages">PAGE NUMBERS</label>
-                    <input className='form__input' type="number" name="pages" onChange={handleAddBookForm} value={updateBook.pages} placeholder='Enter number of pages' />
+                    <input className='form__input' type="number" name="pages" onChange={handleUpdateBookForm} value={updateBook.pages} placeholder='Enter number of pages' />
                 </div>
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="year">YEAR OF PUBLICATION</label>
-                    <input className='form__input' type="number" name="publisherDate" onChange={handleAddBookForm} value={updateBook.publisherDate} placeholder='Enter year of publication' />
+                    <input className='form__input' type="number" name="publisherDate" onChange={handleUpdateBookForm} value={updateBook.publisherDate} placeholder='Enter year of publication' />
                 </div>
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="language">LANGUAGE</label>
-                    <select className='form__input' name="languageId" onChange={handleAddBookForm} value={updateBook.languageId} >
+                    <select className='form__input' name="languageId" onChange={handleUpdateBookForm} value={updateBook.languageId} >
                         <option value="" disabled>Enter a book language</option>
                         <option value="1">English</option>
                         <option value="2">German</option>
@@ -151,7 +161,7 @@ const AddNewBook: React.FC = () => {
                 <div className="addNewBook-wrap__bottom">
                 <div className='form__wrap'>
                     <label  className='form__label' htmlFor="desc">DESCRIPTION</label>
-                    <textarea className='form__input' name="description" onChange={handleAddBookForm} value={updateBook.description} placeholder='Write a description of a book' />
+                    <textarea className='form__input' name="description" onChange={handleUpdateBookForm} value={updateBook.description} placeholder='Write a description of a book' />
                 </div>
                 <div >
                     <button className='button button-profile' type='submit'>Update Book</button>
@@ -163,4 +173,4 @@ const AddNewBook: React.FC = () => {
         </div>
     )}
 
-    export default AddNewBook;
+    export default UpdateBook;
