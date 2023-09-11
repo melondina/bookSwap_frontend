@@ -79,7 +79,7 @@ const Library: React.FC = () => {
                             <p>{ userBooks?.booksInLibrary?.count}</p>
                         </div>
                         <div className='library-item__link'>
-                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine', navigationStatus.delete)} >My waiting books</button>
+                            <button className="button button-library" type='button' onClick={() => handleClick('booksInWaitLine', navigationStatus.delete)} >Want to read</button>
                             <p>{userBooks?.booksInWaitLine?.count}</p>
                         </div>
                         <div className='library-item__link'>
@@ -92,23 +92,23 @@ const Library: React.FC = () => {
                         </div>
                     </div>
                     <div>
-                        <Link className='library-item-left__bottom button button-library' to="/addBook"> 
+                        <button className='library-item-left__bottom button button-library' onClick={() => (navigate("/addBook"))}> 
                         <p className='button-library__bottom'>+</p>
-                        Add new books</Link>
+                        Add new book</button>
                     </div>
                 </div>
-                <div className='library-item library-item-right'>
+                <div className='library-item library-item-right content__items'>
                     {selectedCategory && userBooks && userBooks[selectedCategory] && (
-                        userBooks[selectedCategory].books?.map((book) => (
-                        <div key={book.bookId} className="card-block-wrapper">
+                        userBooks[selectedCategory].books?.map(({ bookId, title, author, category, language, cover }) => (
+                        <div key={bookId} className="card-block-wrapper">
                             <div className="card-block">
-                            <img className="card-block__image" src={book.cover} alt="book cover" />
+                            <img className="card-block__image" src={cover} alt="book cover" />
                             <div className="card-block-desc">
-                                <p className="card-block-desc__top">{book.title}</p>
-                                <p className="card-block-desc__top">{book.author}</p>
-                                <p className="card-block-desc__bottom">{book.category}</p>
-                                <p className="card-block-desc__bottom">{book.language}</p>
-                                <button className="button button-card" onClick={() => getBookById(book.bookId)}> More info </button>
+                                <p className="card-block-desc__top">{title}</p>
+                                <p className="card-block-desc__top">{author}</p>
+                                <p className="card-block-desc__bottom">{category}</p>
+                                <p className="card-block-desc__bottom">{language}</p>
+                                <button className="button button-card" onClick={() => getBookById(bookId)}> More info </button>
                             </div>
                             </div>
                         </div>

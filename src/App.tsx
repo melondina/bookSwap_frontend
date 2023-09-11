@@ -17,7 +17,9 @@ const Profile = lazy(() => import( "./pages/Profile.tsx"))
 const Filter = lazy(() => import( "./components/Filter.tsx"))
 const Search = lazy(() => import( "./components/Search.tsx"))
 
-const AddNewBook = lazy(() => import( "./pages/AddNewBook.tsx"))
+const AddNewBook = lazy(() => import( "./pages/AddNewBook.tsx"));
+const UpdateBook = lazy(() => import( "./pages/UpdateBook.tsx"))
+
 const BookInfo = lazy(() => import( "./pages/BookInfo.tsx"))
 const Registration = lazy(() => import( "./components/UserAuth/Registration.tsx"))
 const Login = lazy(() => import( "./components/UserAuth/Login.tsx"))
@@ -64,6 +66,8 @@ function App() {
 
             <Route path="/profile" element={<Profile />} />
             <Route path="/addBook" element={<AddNewBook />} />
+            <Route path="/updateBook/:id" element={<UpdateBook />} />
+
 
             <Route path="/bookInfo/:id" element={<BookInfo bookId={0} title={""} author={""} description={""} category={""} language={""} pages={0} publisherDate={0} cover={""} location={""} queueSize={0} />} />
 
