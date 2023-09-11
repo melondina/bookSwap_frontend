@@ -34,8 +34,7 @@ const Search: React.FC = () => {
 
         </div>
     </div>
-    {/* <FilterModal/> */}
-    {/* {isModalOpen && <FilterModal closeModal={closeModal} />} */}
+    {isModalOpen && <FilterModal closeModal={closeModal} />}
 </form>
     )
 }
