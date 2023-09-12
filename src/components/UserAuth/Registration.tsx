@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { initUserAuth } from './initUser.ts';
 import { userRegistr } from './userAuthOperation/userAuthOperation.ts';
 import eye from '../../assets/img/visibility_off.svg';
+import ErrorComponent from "../ErrorComponent.tsx";
 
 
 // const BASEURL = "http://localhost:8080"
@@ -12,6 +13,8 @@ const Registration: React.FC = () => {
     const [show, setShow] = useState(false);
     const [acceptTerms, setAcceptTerms] = useState(false);
     const navigate = useNavigate();
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
 
     const handleRegistrationForm = (event: ChangeEvent<HTMLInputElement>) => {
         const { name, value } = event.target;
@@ -29,12 +32,24 @@ const Registration: React.FC = () => {
 
         if (acceptTerms) {
             try {
-                await userRegistr(createNewUser);
-                navigate("/login")
+                const response = await userRegistr(createNewUser);
+                const { status, data } = response;
+                if (response.status === 201) {
+                    navigate("/login");
+                  } else {
+                    setHttpStatus(status);
+                    setErrorApi(data);
+                  }
+               
             } catch (error) {
+                console.error("userRegistr error!!!!!",error)
+                setHttpStatus(error.status);
+                setErrorApi(error);
+
             }
         } else {
-            alert("Please accept Terms and Conditions.");
+            setErrorApi("Please accept Terms and Conditions.");
+            setHttpStatus(null);
         }
     }
 
@@ -45,6 +60,9 @@ const Registration: React.FC = () => {
             </h2>
             <p>
                 It’s free and easy
+                {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
             </p>
             <form onSubmit={handleRegistrationSubmit} className='form'>
                 <div className='form__wrap'>
