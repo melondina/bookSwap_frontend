@@ -1,49 +1,28 @@
-@import '_mixin.scss';
+.filter {
+    &-popup {
+        // width: 60%;
+        @media (max-width: 1024px) {
+            width: 100%;
+        }
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        background: #fff;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
 
-.filter_container {
-    margin: 0 auto;
-    width: 816px;
-    height: 342px;
-    border-radius: 1%;
-    border-style: groove;
-    padding: 20px;
-    background-color: #EDF2F7;
-    font-size: 20px;
-    line-height: 35px;
-    letter-spacing: 1px;
+    &-button {
+        border: none;
+        cursor: pointer;
+        background-color: transparent;
+    }
+    &-title {
+        margin-bottom: 10px;
+    }
     
-}
+    input {
+        cursor: pointer;
+    }
+} 
 
-.checkbox1  {
-   
-    float:left;
-    width: 200px;
-    height: 275px;
-    margin-left: 20px;    
-}
-.checkbox2   {
-   
-    float:left;
-    width: 200px;
-    height: 275px;
-    margin-left: 30px;    
-}
-
-
-.checkbox3  {
-  
-    float:left;
-    width: 200px;
-    height: 275px;
-    margin-right: 10px;     
-}
-   
-.columns-3 {
-    column-count: 3;
-}
-
-.view__button {
-    font-size: 15px;
-    margin-left: 20px;
-    font-weight:600;
-}

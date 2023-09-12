@@ -5,11 +5,13 @@ import language from './slices/languageFilterSlice.js';
 import location from './slices/locationFilterSlice.js';
 import category from './slices/categoryFilterSlice.js';
 import navigation from './slices/navigationSlice.js';
+import search from './slices/searchSlice.js';
+
 
 
 export const store = configureStore({
   reducer: {
-    cards, user, language, location, category, navigation,
+    cards, user, language, location, category, navigation, search,
   },
   devTools: true
 });
