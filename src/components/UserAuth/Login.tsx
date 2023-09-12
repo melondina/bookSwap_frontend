@@ -7,6 +7,8 @@ import { initUserAuth } from './initUser.ts';
 import { getUser, userLogin } from './userAuthOperation/userAuthOperation.ts';
 import eye from '../../assets/img/visibility_off.svg';
 import { setUser } from '../../redux/slices/usersSlice.js';
+import ErrorComponent from "../ErrorComponent.tsx";
+
 
 
 const Login: React.FC = () => {
@@ -15,6 +17,8 @@ const Login: React.FC = () => {
     const navigate = useNavigate();
     const [error, setError] = useState("");
     const dispatch = useDispatch();
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
     
 
     const handleLoginForm = (event: ChangeEvent<HTMLInputElement>) => {
@@ -30,7 +34,8 @@ const Login: React.FC = () => {
         event.preventDefault();
         try {
             const userData = await userLogin(loginUser);
-            if(userData?.status===200) {
+            const { status, data } = userData;
+            if(status===200) {
                 const getMe = await getUser();
                 console.log("getMe",getMe?.data);
 
@@ -42,11 +47,15 @@ const Login: React.FC = () => {
             }
                 
             } else {
-                setError("Incorrect email or password. Please try again.");
+                setHttpStatus(status);
+                setErrorApi(data);
+                console.error("userLogin error",data)
+                          
             }
         } catch (error) {
-            setError("Incorrect email or password. Please try again.");
-            console.log(error)
+            console.error("userLogin error catch",error)
+                setHttpStatus(error.status);
+                setErrorApi(error);
         } 
     }
 
@@ -55,7 +64,11 @@ const Login: React.FC = () => {
         <div className='container'>
                 <h2 className='content__title'>
                     Welcome to Book Share
+                    {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
                 </h2>
+
                 <form onSubmit={handleLoginSubmit} className='form'>
                     <div className='form__wrap'>
                         <label  className='form__label' htmlFor="email">Email</label>

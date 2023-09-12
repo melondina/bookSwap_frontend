@@ -2,6 +2,8 @@ import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import axios from "axios";
 import { useSelector } from 'react-redux';
+import ErrorComponent from "../components/ErrorComponent.tsx";
+
 
 
 
@@ -12,6 +14,9 @@ const UpdateBook: React.FC = () => {
     const bookFromProps = location.state?.book || {};
 
     const user = useSelector((state) => state.user.user);
+
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
     
     const [updateBook, setUpdateBook] = useState({
         title: bookFromProps.title || '',
@@ -56,7 +61,10 @@ const UpdateBook: React.FC = () => {
             console.log("bookUpdating", data)
             return data;
         } catch (error) {
-            console.log("bookUpdating",error)
+            console.log("bookCreating",error)
+            setHttpStatus(error.response.status);
+            setErrorApi(error.response);
+            return { status: error.response.status, data: error.response };
         }
     }
     
@@ -73,10 +81,17 @@ const UpdateBook: React.FC = () => {
         event.preventDefault();
         try {
             const bookData = await bookUpdating(updateBook);
+            const { status, data } = bookData;
             if(bookData?.status===200) {
                 navigate("/library");
+            }if(status===400){
+                setHttpStatus(status);
+                setErrorApi(data.data);
             }
-            console.log(bookData)
+            else {
+                setHttpStatus(status);
+                setErrorApi(data);
+                }
         } catch (error) {
             console.log(error)
         }
@@ -97,6 +112,9 @@ const UpdateBook: React.FC = () => {
         <div className='container'>
             <h2 className="content__title">Update Book</h2> 
             <div className="addNewBook__items">
+            {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
             <form onSubmit={handleUpdateBookSubmit} className='form addNewBook-wrap'>
                 <div className='form__wrap addNewBook-wrap__top'>
                     <label  className='form__label' htmlFor="image">UPLOAD A BOOK COVER</label>
