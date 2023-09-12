@@ -61,7 +61,7 @@ const Registration: React.FC = () => {
                 <div className='form__wrap form__wrap__eye'>
                     <label className='form__label' htmlFor="password">Repeat password</label>
                     <input className='form__input' type={show?"text":"password"} placeholder='Repeat password' />
-                    <button className="button__eye" type="button" onClick={() => setShow((prev) => !prev)}>git </button>
+                    <button className="button__eye" type="button" onClick={() => setShow((prev) => !prev)}><img width="24px"  src={eye} alt="eye" /> </button>
                 </div>
                 <div className='form__wrap'>
                 <input

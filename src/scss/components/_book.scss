@@ -5,17 +5,15 @@
     margin: 0 auto;
     
     &__container {
-        display: inline-flex;
-        justify-content: center;
-        align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
         gap: 49px;
-        margin: 89px 0;
     }
 
-    &__img {
-        width: 337px;
-        height: 490px;
-    }
+    // &__img {
+    //     width: 337px;
+    //     height: 490px;
+    // }
 
     &__title {
         font-weight: bold;
