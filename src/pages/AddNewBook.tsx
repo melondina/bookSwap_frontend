@@ -3,13 +3,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
 import { useSelector } from 'react-redux';
 import { navigationStatus } from '../redux/slices/navigationSlice.js'
-
+import ErrorComponent from "../components/ErrorComponent.tsx";
 
 
 
 const AddNewBook: React.FC = () => {
 
     const user = useSelector((state) => state.user.user);
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
     
     const getNavigationStatus = useSelector((state) => state.navigation);
     console.log("🚀 ~ file: AddNewBook.tsx:14 ~ getNavigationStatus:", getNavigationStatus)
@@ -51,7 +53,7 @@ const AddNewBook: React.FC = () => {
         try {
             const newBookData = {
                 ...createNewBook,
-                owner: user.id,
+                  owner: user.id,
             };
             console.log(newBookData)
             const data = await axios.post(`/api/books`, newBookData);
@@ -59,6 +61,10 @@ const AddNewBook: React.FC = () => {
             return data;
         } catch (error) {
             console.log("bookCreating",error)
+            setHttpStatus(error.response.status);
+            setErrorApi(error.response);
+            return { status: error.response.status, data: error.response };
+                   
         }
     }
     
@@ -75,10 +81,18 @@ const AddNewBook: React.FC = () => {
         event.preventDefault();
         try {
             const bookData = await bookCreating(createNewBook);
-            if(bookData?.status===201) {
+            const { status, data } = bookData;
+            
+            if(status===201) {
                 navigate("/library");
+            }if(status===400){
+                setHttpStatus(status);
+                setErrorApi(data.data);
             }
-            console.log(bookData)
+            else {
+                setHttpStatus(status);
+                setErrorApi(data);
+                }
         } catch (error) {
             console.log(error)
         }
@@ -92,6 +106,9 @@ const AddNewBook: React.FC = () => {
         <div className='container'>
             <h2 className="content__title">Add New Book</h2>
             <div className="addNewBook__items">
+            {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
             <form onSubmit={handleAddNewBookSubmit} className='form addNewBook-wrap'>
                 <div className='form__wrap addNewBook-wrap__top'>
                     <label  className='form__label' htmlFor="image">UPLOAD A BOOK COVER</label>

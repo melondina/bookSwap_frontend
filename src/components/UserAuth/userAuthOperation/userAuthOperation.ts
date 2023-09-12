@@ -10,17 +10,20 @@ export const userLogin = async ({email, password}: ICreateNewUser) => {
         console.log("userLogin", data)
         return data;
     } catch (error) {
-        console.log("userLogin", error)
+        console.error("userLogin error",error.response)
+        return  error.response ;
     }
 };
 
 export const userRegistr = async (createNewUser: ICreateNewUser) => {
     try {
-        const {data} = await axios.post(`/api/registration`, createNewUser);
+    const data= await axios.post(`/api/registration`, createNewUser);
         console.log("userRegistr", data)
-    } catch (error) {
-        console.log("userRegistr",error)
-    }
+        return data;
+        } catch (error) {
+        console.error("userRegistr error",error.response)
+        return  error.response ;
+        }
 }
 
 export const getUser = async () => {

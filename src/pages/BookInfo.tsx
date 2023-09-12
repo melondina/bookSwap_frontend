@@ -3,6 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { navigationStatus } from '../redux/slices/navigationSlice.js'
+import ErrorComponent from "../components/ErrorComponent.tsx";
+
 
 
 
@@ -40,6 +42,10 @@ const BookInfo: React.FC<IBooks> = ({
     const getNavigationStatus = useSelector((state) => state.navigation);
     // console.log("🚀 ~ file: BookInfo.tsx:27 ~ getNavigationStatus:", getNavigationStatus)
 
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
+    
+
     const dispatch = useDispatch();
 
 
@@ -75,23 +81,30 @@ const BookInfo: React.FC<IBooks> = ({
                 bookId: id
             };
             console.log("newGetBook", newGetBook)
-            const data = await axios.post(`/api/books/getting`, newGetBook);
-            console.log("getBookCreating", data)
-            return data;
+            const responce = await axios.post(`/api/books/getting`, newGetBook);
+            console.log("getBookCreating", responce)
+            return responce;
         } catch (error) {
-            console.log("getBookCreating", error)
+            console.log("getBookgetting",error.response)
+            return { status: error.response.status, data: error.response};
         }
     }
 
     const handleGetBook = async () => {
         try {
             const getBookData = await getBookCreating(getBook);
+            const { status, data } =getBookData
             if (getBookData?.status === 200) {
                 navigate("/library");
-            } else (navigate("/"))
+            }    else {
+                setHttpStatus(status);
+                setErrorApi(data);
+                }
+            //(navigate("/"))
             console.log("getBookData", getBookData)
         } catch (error) {
             console.log(error)
+            return { status: error.response.status, data: error.response};
         }
     }
 
@@ -108,18 +121,23 @@ const BookInfo: React.FC<IBooks> = ({
             return data;
         } catch (error) {
             console.log("sendBookCreating", error)
+            return { status: error.response.status, data: error.response};
         }
     }
 
     const handleSendBook = async () => {
         try {
             const sendBookData = await sendBookCreating(getBook);
-            if (sendBookData?.status === 200) {
+            const { status, data } =sendBookData;
+            if (status === 200) {
                 navigate("/library");
-            } else (navigate("/"))
-            console.log("getBookData", sendBookData)
+            }  else {
+                setHttpStatus(status);
+                setErrorApi(data);
+            //(navigate("/"))
+            console.log("getBookData", sendBookData)}
         } catch (error) {
-            console.log(error)
+            return { status: error.response.status, data: error.response};
         }
     }
 
@@ -140,19 +158,23 @@ const BookInfo: React.FC<IBooks> = ({
             console.log("deleteBookCreating", response)
             return response.data;
         } catch (error) {
-            console.log("deleteBookCreating", error)
+            return { status: error.response.status, data: error.response};
         }
     }
 
     const handleDeleteBook = async () => {
         try {
             const deleteBookData = await deleteBookCreating(getBook);
-            if (deleteBookData?.status === 200) {
+            const { status, data } =deleteBookData;
+            if (status === 200) {
                 navigate("/library");
-            } else (navigate("/library"))
-            console.log("deleteBookData", deleteBookData)
+            }  else {
+                setHttpStatus(status);
+                setErrorApi(data);
+                navigate("/library")
+            console.log("deleteBookData", deleteBookData)}
         } catch (error) {
-            console.log(error)
+            return { status: error.response.status, data: error.response};
         }
  
     }
@@ -165,12 +187,17 @@ const BookInfo: React.FC<IBooks> = ({
         const fetchBook = async () => {
             try {
                 const response = await axios.get(`/api/books/${id}/detail`);
-                if (response?.status === 200) {
+                const { status, data } =response;
+                if (status === 200) {
                     setBook(response.data);
-                }
+                }else {
+                    setHttpStatus(status);
+                    setErrorApi(data);}
                 // console.log("dataBook", response.data.title);
             } catch (error) {
-                console.error('Ошибка при запросе к серверу:', error);
+                setHttpStatus(error.response.status);
+                setErrorApi(error);
+                return { status: error.response.status, data: error.response };
             }
         };
 
@@ -184,6 +211,9 @@ const BookInfo: React.FC<IBooks> = ({
                 <div>
                     <img className='book__img' src={book?.cover} alt="Book" />
                 </div>
+                {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
                 <div>
                     <p className='book__title'>{book?.title}</p>
                     <p className='book__title'>{book?.author}</p>

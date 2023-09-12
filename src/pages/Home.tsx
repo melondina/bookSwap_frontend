@@ -7,6 +7,7 @@ import Cards from '../components/Cards/index.tsx';
 import { selectLanguageId, resetLanguage } from '../redux/slices/languageFilterSlice.js';
 import { selectCategoryId, resetCategory } from '../redux/slices/categoryFilterSlice.js';
 import { selectLocation, resetLocation } from '../redux/slices/locationFilterSlice.js';
+import ErrorComponent from "../components/ErrorComponent.tsx";
 
 
 const Home: React.FC = () => {
@@ -20,6 +21,9 @@ const Home: React.FC = () => {
     const languageId = useSelector(selectLanguageId);
     const categoryId = useSelector(selectCategoryId);
     const location = useSelector(selectLocation);
+
+    const [errorApi, setErrorApi] = useState(null);
+    const [httpStatus, setHttpStatus] = useState(null);
 
     useEffect(() => {
         const fetchCards = async () => {
@@ -42,7 +46,9 @@ const Home: React.FC = () => {
                         dispatch(setItems(json.books));
                     });
             } catch (error) {
-                alert('Ошибка запроса')
+                setHttpStatus(error.response.status);
+                setErrorApi(error.response);
+                return { status: error.response.status, data: error.response };
             } finally {
                 setIsLoading(false);
             }
@@ -63,6 +69,9 @@ const Home: React.FC = () => {
                 <p className='header-bottom_desc'>
                     Words Shared, Worlds Explored
                 </p>
+                {errorApi && (
+          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+        )}
             </div>
             <div className="container">
                 <Search />
