@@ -149,7 +149,6 @@ const BookInfo: React.FC<IBooks> = ({
                 bookId: id
             };
             console.log("newDeleteBook", newDeleteBook)
-            // const data = await axios.delete(`/api/books/remove`, newDeleteBook);
 
             const response: AxiosResponse<{  }> = await axios.delete(`/api/books/remove`, {
                 data: newDeleteBook,

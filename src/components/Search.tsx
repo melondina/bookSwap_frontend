@@ -1,39 +1,71 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import FilterModal from '../components/FilterModal/FilterModal.tsx'
+import React, { FormEvent, useCallback, useState } from 'react';
+import debounce from 'lodash.debounce';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSearchValue } from '../redux/slices/searchSlice.js';
+import axios from 'axios';
+
 
 const Search: React.FC = () => {
-    // const [isModalOpen, setIsModalOpen] = useState(false);
+  const dispatch = useDispatch();
+  const [ value, setValue ] = useState('');
 
-    // const openModal = () => {
-    //     setIsModalOpen(true);
-    //   };
+//   const onClickClear = (e: React.MouseEvent) => {
+//     dispatch( setSearchValue(''));
+//     setValue('');
+//   }
 
-    // const closeModal = () => {
-    //     setIsModalOpen(false);
-    //   };
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+    console.log("🚀 ~ file: Search.tsx:18 ~ onChangeInput ~ setValue:", value)
+    // updateSearchValue(e.target.value);
+  }
 
-    return (
-        <form action="" className='form-search'>
-            <div className='form__search'>
-            <input className='form-search__input' type="search" placeholder='Search for anything...'/>            
-            <div className="filter_button">                                     
-            <Link to="/Filter" className='links'>
-            <svg width="43" height="48" viewBox="0 0 43 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="0.878906" width="41.4943" height="48" rx="10" fill="#2A2F54"/>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M11.8789 17V19.3333H31.8789V17H11.8789ZM15.2122 25.1667H28.5456V22.8333H15.2122V25.1667ZM24.1011 31H19.6567V28.6667H24.1011V31Z" fill="white"/>
-            </svg>
-            </Link>
-            {/* <button onClick={openModal} className='links'>
-            <svg width="43" height="48" viewBox="0 0 43 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect x="0.878906" width="41.4943" height="48" rx="10" fill="#2A2F54"/>
-<path fill-rule="evenodd" clip-rule="evenodd" d="M11.8789 17V19.3333H31.8789V17H11.8789ZM15.2122 25.1667H28.5456V22.8333H15.2122V25.1667ZM24.1011 31H19.6567V28.6667H24.1011V31Z" fill="white"/>
-</svg>
-          </button> */}
-        </div>
-    </div>
-    {/* {isModalOpen && <FilterModal closeModal={closeModal} />} */}
-</form>
-    )
+//   const updateSearchValue = useCallback(
+//     debounce((str) => {
+//       dispatch( setSearchValue(str));
+//     }, 250),
+//     []
+//   );
+
+
+
+
+
+const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    try {
+        const response = await axios.get(`/api/books/?multiSearch=${value}`, { withCredentials: true });
+        // if(bookData?.status===201) {
+        //     navigate("/library");
+        // }
+        console.log("🚀 ~ file: Search.tsx:73 ~ handleSubmit ~ response:", response);
+        console.log("🚀 ~ file: Search.tsx:77 ~ handleSubmit ~ data:", response.data);
+        dispatch(setSearchValue(response.data));
+        // return response.data;
+        
+    } catch (error) {
+        console.log(error)
+    }
 }
+
+const searchValue = useSelector((state) => state.search.searchValue.books);
+
+  console.log("Search Value from Redux Store:", searchValue);
+
+
+
+
+
+  return (
+    <form onSubmit={handleSubmit} className='form-search'>
+        <input
+        className='form__input'
+        value={value}
+        onChange={onChangeInput}
+        placeholder="Search by title, author" />
+    </form>
+
+  )
+}
+
 export default Search;
