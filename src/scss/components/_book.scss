@@ -1,19 +1,22 @@
 @import '../variables';
 
 .book {
+    &-img-block {
+        width: 200px;
+    }
     width: 866px;
     margin: 0 auto;
     
     &__container {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         gap: 49px;
     }
 
-    // &__img {
-    //     width: 337px;
-    //     height: 490px;
-    // }
+    &__img {
+        width: 200px;
+        // height: 100%;
+    }
 
     &__title {
         font-weight: bold;

@@ -8,9 +8,12 @@ import { Link } from 'react-router-dom';
 
 const Filter: React.FC = () => {
 
-  const [cleanLanguage, setCleanLanguage] = useState(false);
-  const [cleanLocation, setCleanLocation] = useState(false);
-  const [cleanCategory, setCleanCategory] = useState(false);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+
+
+  // const [cleanLanguage, setCleanLanguage] = useState(false);
+  // const [cleanLocation, setCleanLocation] = useState(false);
+  // const [cleanCategory, setCleanCategory] = useState(false);
 
 
   const dispatch = useDispatch();
@@ -52,18 +55,18 @@ const Filter: React.FC = () => {
 
   const handleLanguageChange = (language: {languageId: number, title:string}) => {
     dispatch(setLanguage(language));
-    setCleanLanguage(true);
+    // setCleanLanguage(true);
   };
 
   const handleLocationChange = (location: string) => {
     dispatch(setLocation(location));
-    setCleanLocation(true);
+    // setCleanLocation(true);
 
   }; 
 
   const handleCategoryChange = (category: {categoryId: number, title:string}) => {
     dispatch(setCategory(category));
-    setCleanCategory(true);
+    // setCleanCategory(true);
   }
 
   const handleResetFilters = () => {
@@ -72,10 +75,12 @@ const Filter: React.FC = () => {
     dispatch(resetLocation());
     dispatch(resetCategory());
     // window.location.reload();
-    setCleanLanguage(false);
-    setCleanLocation(false);
-    setCleanCategory(false);
+    // setCleanLanguage(false);
+    // setCleanLocation(false);
+    // setCleanCategory(false);
+    setIsFilterOpen(!isFilterOpen);
   };
+
 
 
 
@@ -90,7 +95,7 @@ return (
             <li key={language.languageId}>
               <label>
                 <input type="radio"
-                  checked={cleanLanguage}
+                  // checked={cleanLanguage}
                   name="language"
                   value={language.title}
                   onChange={() => handleLanguageChange(language)}
@@ -108,7 +113,7 @@ return (
             <li key={location}>
               <label>
                 <input type="radio"
-                  checked={cleanLocation} 
+                  // checked={cleanLocation} 
                   name="location"
                   value={location}
                   onChange={() => handleLocationChange(location)}
@@ -126,7 +131,7 @@ return (
             <li key={category.categoryId}>
               <label>
                 <input type="radio"
-                checked={cleanCategory} 
+                // checked={cleanCategory} 
                 name="category"
                 value={category.title}
                 onChange={() => handleCategoryChange(category)} />

@@ -207,12 +207,12 @@ const BookInfo: React.FC<IBooks> = ({
     return (
         <div className='book'>
             <div className='book__container'>
-                <div>
+                <div className='book-img-block'>
                     <img className='book__img' src={book?.cover} alt="Book" />
                 </div>
                 {errorApi && (
-          <ErrorComponent error={errorApi} httpStatus={httpStatus} />
-        )}
+                    <ErrorComponent error={errorApi} httpStatus={httpStatus} />
+                    )}
                 <div>
                     <p className='book__title'>{book?.title}</p>
                     <p className='book__title'>{book?.author}</p>
